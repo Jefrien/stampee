@@ -7,18 +7,18 @@ import { cn } from '../lib/utils';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
 
-const CATEGORIES = ["All", "Food & Drink", "Beauty & Wellness", "Services", "Retail"];
+const CATEGORIES = ["Todos", "Comida y bebida", "Belleza y bienestar", "Servicios", "Retail"];
 
 const TEMPLATE_CATEGORIES: Record<string, string> = {
-  'cookie-classic': 'Food & Drink',
-  'midnight-brew': 'Food & Drink',
-  'pizza-party': 'Food & Drink',
-  'sweet-scoops': 'Food & Drink',
-  'massage-bliss': 'Beauty & Wellness',
-  'laundry-fresh': 'Services',
-  'sharp-cuts': 'Beauty & Wellness',
-  'boba-time': 'Food & Drink',
-  'burger-joint': 'Food & Drink'
+  'cookie-classic': 'Comida y bebida',
+  'midnight-brew': 'Comida y bebida',
+  'pizza-party': 'Comida y bebida',
+  'sweet-scoops': 'Comida y bebida',
+  'massage-bliss': 'Belleza y bienestar',
+  'laundry-fresh': 'Servicios',
+  'sharp-cuts': 'Belleza y bienestar',
+  'boba-time': 'Comida y bebida',
+  'burger-joint': 'Comida y bebida'
 };
 
 interface ResponsiveCardPreviewProps {
@@ -83,7 +83,7 @@ const ResponsiveCardPreview: React.FC<ResponsiveCardPreviewProps> = ({ template,
                     <span className={cn(
                         "text-xs px-2.5 py-1 rounded-full font-semibold bg-secondary text-secondary-foreground border"
                     )}>
-                        {template.totalStamps} Stamps
+                        {template.totalStamps} sellos
                     </span>
                     <span className="text-xs text-muted-foreground truncate max-w-[200px]" title={template.rewardName}>
                        {template.rewardName}
@@ -96,10 +96,10 @@ const ResponsiveCardPreview: React.FC<ResponsiveCardPreviewProps> = ({ template,
 
 export const TemplatesGallery: React.FC = () => {
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("Todos");
 
   const filteredTemplates = templates.filter(template => {
-    if (activeCategory === "All") return true;
+    if (activeCategory === "Todos") return true;
     return TEMPLATE_CATEGORIES[template.id] === activeCategory;
   });
 
@@ -115,8 +115,8 @@ export const TemplatesGallery: React.FC = () => {
                 <LayoutGrid size={24} />
             </div>
             <div>
-                <h1 className="text-3xl font-bold tracking-tight text-foreground">Templates</h1>
-                <p className="text-muted-foreground">Select a design to start your customer loyalty program.</p>
+                <h1 className="text-3xl font-bold tracking-tight text-foreground">Plantillas</h1>
+                <p className="text-muted-foreground">Selecciona un diseño para iniciar tu programa de fidelidad.</p>
             </div>
         </div>
 

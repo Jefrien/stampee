@@ -7,33 +7,33 @@ import { SUPPORT_EMAIL } from "../lib/siteConfig";
 
 const sections = [
   {
-    title: "Service overview",
+    title: "Descripción general del servicio",
     body:
-      "Stampee provides browser-based digital loyalty cards and related tools for small businesses. The beta is intended for evaluation and day-to-day campaign use, but features may change as the product evolves.",
+      "Stampee ofrece tarjetas de fidelidad digitales basadas en el navegador y herramientas relacionadas para pequeños negocios. La beta está pensada para evaluación y uso diario de campañas, pero las funciones pueden cambiar a medida que el producto evoluciona.",
   },
   {
-    title: "Acceptable use",
+    title: "Uso aceptable",
     body:
-      "You may use Stampee only for lawful business activity. You must not use the service to send spam, abuse customer data, attempt unauthorized access, interfere with other accounts, or upload content that infringes the rights of others.",
+      "Puedes usar Stampee solo para actividad comercial lícita. No debes usar el servicio para enviar spam, abusar de los datos de los clientes, intentar accesos no autorizados, interferir con otras cuentas o subir contenido que infrinja los derechos de terceros.",
   },
   {
-    title: "Your data and customer records",
+    title: "Tus datos y registros de clientes",
     body:
-      "You are responsible for the business information, campaign content, and customer details you add to Stampee. You should have the right to collect and use that information and should avoid storing unnecessary sensitive data in the product.",
+      "Eres responsable de la información comercial, el contenido de las campañas y los datos de los clientes que agregues a Stampee. Debes tener derecho a recopilar y usar esa información, y evitar almacenar datos sensibles innecesarios en el producto.",
   },
   {
-    title: "Beta availability",
+    title: "Disponibilidad de la beta",
     body:
-      "Stampee is currently offered as a soft beta. We may modify, suspend, or remove features, and we do not guarantee uninterrupted availability, specific uptime levels, or that every beta feature will remain in the product.",
+      "Stampee se ofrece actualmente como una beta suave. Podemos modificar, suspender o eliminar funciones, y no garantizamos disponibilidad ininterrumpida, niveles específicos de tiempo de actividad ni que cada función beta permanezca en el producto.",
   },
   {
-    title: "Limitation of liability",
+    title: "Limitación de responsabilidad",
     body:
-      "To the fullest extent allowed by law, Stampee is provided on an as-is and as-available basis during beta. We are not liable for indirect, incidental, special, consequential, or punitive damages, or for loss of revenue, profits, data, or goodwill arising from use of the service.",
+      "En la máxima medida permitida por la ley, Stampee se proporciona tal cual y según disponibilidad durante la beta. No somos responsables por daños indirectos, incidentales, especiales, consecuenciales o punitivos, ni por pérdida de ingresos, ganancias, datos o reputación derivada del uso del servicio.",
   },
   {
-    title: "Contact",
-    body: `Questions about these terms or the beta can be sent to ${SUPPORT_EMAIL}.`,
+    title: "Contacto",
+    body: `Las preguntas sobre estos términos o la beta pueden enviarse a ${SUPPORT_EMAIL}.`,
   },
 ];
 
@@ -48,7 +48,7 @@ export const TermsPage: React.FC = () => {
           <Button asChild variant="ghost" className="rounded-full text-sm text-[#1d1d1f] hover:bg-black/[0.05]">
             <Link to="/">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Home
+              Inicio
             </Link>
           </Button>
         </div>
@@ -60,13 +60,13 @@ export const TermsPage: React.FC = () => {
             <div className="max-w-[50rem]">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-white/88">
                 <FileText className="h-3.5 w-3.5" />
-                Terms of Service
+                Términos del servicio
               </div>
               <h1 className="mt-6 text-[clamp(2.8rem,5.4vw,5.2rem)] font-black leading-[0.92] tracking-[-0.05em] text-white">
-                Terms for using Stampee during the beta.
+                Términos para usar Stampee durante la beta.
               </h1>
               <p className="mt-6 max-w-[38rem] text-[clamp(1rem,1.35vw,1.16rem)] leading-8 text-white/75">
-                Last updated March 3, 2026.
+                Última actualización: 3 de marzo de 2026.
               </p>
             </div>
           </div>
@@ -77,11 +77,11 @@ export const TermsPage: React.FC = () => {
             <div className="space-y-6">
               <div className="bg-white px-6 py-2 sm:px-8 sm:py-2">
                 <h2 className="text-[clamp(1.6rem,2.5vw,2.4rem)] font-semibold tracking-tight text-[#1d1d1f]">
-                  Overview
+                  Resumen
                 </h2>
                 <p className="mt-4 text-base leading-8 text-[#50545a]">
-                  These terms describe the core rules for using Stampee in its current beta stage. They are written to
-                  give small-business users a clear baseline while the product continues to ship improvements.
+                  Estos términos describen las reglas principales para usar Stampee en su etapa actual de beta. Están escritos para
+                  dar a los usuarios de pequeños negocios una base clara mientras el producto sigue mejorando.
                 </p>
               </div>
 
@@ -100,13 +100,13 @@ export const TermsPage: React.FC = () => {
 
             <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
               <div className="bg-white px-6 py-2">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1d1d1f]">Beta note</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1d1d1f]">Nota sobre la beta</p>
                 <p className="mt-4 text-sm leading-7 text-[#5f4a2c]">
-                  Stampee is still being hardened for broader release. Use the beta with that expectation, and contact{" "}
+                  Stampee todavía se está consolidando para un lanzamiento más amplio. Usa la beta con esa expectativa y contacta a{" "}
                   <a className="font-medium underline underline-offset-2" href={`mailto:${SUPPORT_EMAIL}`}>
                     {SUPPORT_EMAIL}
                   </a>{" "}
-                  if you need clarification.
+                  si necesitas aclaraciones.
                 </p>
               </div>
             </aside>

@@ -169,13 +169,13 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
 
   const handleIssueCard = async (campaign: Template, customer: Customer | null, newCustomerData: { name: string, email: string, mobile: string }): Promise<IssuedCard> => {
     if (!currentOwner) {
-      throw new Error("You must be signed in as an owner or staff member to issue cards.");
+      throw new Error("Debes iniciar sesión como propietario o personal para emitir tarjetas.");
     }
     if (campaign.isEnabled === false) {
-      throw new Error("This campaign is disabled and cannot issue new cards.");
+      throw new Error("Esta campaña está deshabilitada y no puede emitir nuevas tarjetas.");
     }
 
-    const actorName = currentUser?.businessName ?? "Owner";
+    const actorName = currentUser?.businessName ?? "Propietario";
     const actorRole = currentUser?.role ?? "owner";
     const actorId = currentUser?.id;
 
@@ -196,7 +196,7 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
         currentOwner.id
       );
       if (!customerResult.ok) {
-        throw new Error(customerResult.error ?? "Failed to create the customer record.");
+        throw new Error(customerResult.error ?? "Error al crear el registro del cliente.");
       }
     }
 
@@ -210,7 +210,7 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
         hour: 'numeric', minute: '2-digit', hour12: true
       }),
       timestamp: now.getTime(),
-      title: "Card Issued",
+      title: "Tarjeta emitida",
       actorName,
       actorRole,
       actorId
@@ -237,12 +237,12 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
       templateSnapshot: toStoredTemplate(campaign),
     }, currentOwner.id);
     if (!cardResult.ok) {
-      throw new Error(cardResult.error ?? "Failed to create the card.");
+      throw new Error(cardResult.error ?? "Error al crear la tarjeta.");
     }
 
     const txResult = await insertTransaction(newCard.id, initialTransaction);
     if (!txResult.ok) {
-      throw new Error(txResult.error ?? "Failed to record the initial transaction.");
+      throw new Error(txResult.error ?? "Error al registrar la transacción inicial.");
     }
 
     const targetId = targetCustomer.id;
@@ -421,20 +421,20 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
 
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
         <div className="min-w-0">
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Issued Cards</h1>
-          <p className="text-sm text-muted-foreground md:text-base">Monitor active cards and open Kiosk Mode for stamping.</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Tarjetas emitidas</h1>
+          <p className="text-sm text-muted-foreground md:text-base">Supervisa tarjetas activas y abre el modo quiosco para sellar.</p>
         </div>
         <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center lg:w-auto lg:justify-end">
           <Button variant="outline" className="w-full gap-2 rounded-full sm:w-auto" onClick={() => setIsScanOpen(true)}>
-            <QrCode size={16} /> Scan QR
+            <QrCode size={16} /> Escanear QR
           </Button>
           <div className="flex w-full flex-col gap-2 sm:w-auto sm:items-end">
             <Button onClick={openIssueWizard} className="w-full gap-2 rounded-full px-6 shadow-sm sm:w-auto" disabled={!canIssue}>
-              <Plus size={16} /> Issue New Card
+              <Plus size={16} /> Emitir nueva tarjeta
             </Button>
             {!canIssue && (
               <div className="flex items-center gap-2 text-xs text-amber-600 sm:justify-end">
-                <Lock size={12} /> Confirm your email to issue cards.
+                <Lock size={12} /> Confirma tu correo para emitir tarjetas.
               </div>
             )}
           </div>
@@ -451,7 +451,7 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
         <Search className="text-gray-400" size={20} />
         <input
           className="flex-1 outline-none text-sm bg-transparent placeholder:text-muted-foreground"
-          placeholder="Find a card..."
+          placeholder="Buscar tarjeta..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -460,7 +460,7 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
       <div className="rounded-xl border bg-white shadow-sm">
         {cardRows.length === 0 ? (
           <div className="flex h-32 items-center justify-center px-4 text-center text-sm text-muted-foreground">
-            No cards found. Issue one to get started.
+            No se encontraron tarjetas. Emite una para comenzar.
           </div>
         ) : (
           <>
@@ -484,8 +484,8 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
                       <div className={cn("min-w-0", isRedeemed && "opacity-60")}>
                         <div className="flex flex-wrap items-center gap-2">
                           <h2 className="text-sm font-semibold text-foreground">{card.campaignName}</h2>
-                          {isArchivedCampaign && <Badge variant="outline" className="text-[10px] uppercase tracking-wide">Archived campaign</Badge>}
-                          {isRedeemed && <span className="rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-bold uppercase text-gray-600">Redeemed</span>}
+                          {isArchivedCampaign && <Badge variant="outline" className="text-[10px] uppercase tracking-wide">Campaña archivada</Badge>}
+                          {isRedeemed && <span className="rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-bold uppercase text-gray-600">Canjeada</span>}
                         </div>
                         <p className="mt-1 truncate text-xs font-mono text-muted-foreground">ID: {card.uniqueId.slice(0, 8)}</p>
                       </div>
@@ -497,9 +497,9 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Manage Card</DropdownMenuLabel>
+                        <DropdownMenuLabel>Gestionar tarjeta</DropdownMenuLabel>
                         <DropdownMenuItem onClick={() => openPublicLink(card.uniqueId)}>
-                          <ExternalLink className="mr-2 h-4 w-4" /> Public Link
+                          <ExternalLink className="mr-2 h-4 w-4" /> Enlace público
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         {!isStaff && (
@@ -507,7 +507,7 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
                             className="text-red-600"
                             onClick={() => handleRevokeCard(customer.id, card.id)}
                           >
-                            <Trash className="mr-2 h-4 w-4" /> Revoke
+                            <Trash className="mr-2 h-4 w-4" /> Revocar
                           </DropdownMenuItem>
                         )}
                       </DropdownMenuContent>
@@ -528,9 +528,9 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
 
                   <div className="mt-4 space-y-2">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">Progress</span>
+                      <span className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">Progreso</span>
                       {isRedeemed ? (
-                        <span className="text-sm font-medium text-muted-foreground">Completed</span>
+                        <span className="text-sm font-medium text-muted-foreground">Completada</span>
                       ) : (
                         <span className="text-sm font-bold text-foreground">
                           {card.stamps} <span className="font-normal text-muted-foreground">/ {campaign.totalStamps}</span>
@@ -555,7 +555,7 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
                       onClick={() => setActiveKioskData({ customer, card, template: campaign })}
                     >
                       {isRedeemed ? <Lock size={14} /> : <MonitorPlay size={14} />}
-                      {isRedeemed ? "View Card" : (canRedeem ? "Redeem Reward" : "Open Kiosk")}
+                      {isRedeemed ? "Ver tarjeta" : (canRedeem ? "Canjear premio" : "Abrir quiosco")}
                     </Button>
                   </div>
                 </div>
@@ -566,10 +566,10 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
               <Table>
                 <TableHeader>
                   <TableRow className="bg-muted/30">
-                    <TableHead className="w-[300px]">Card Details</TableHead>
-                    <TableHead>Customer</TableHead>
-                    <TableHead className="text-right">Progress</TableHead>
-                    <TableHead className="text-right">Action</TableHead>
+                    <TableHead className="w-[300px]">Detalles de tarjeta</TableHead>
+                    <TableHead>Cliente</TableHead>
+                    <TableHead className="text-right">Progreso</TableHead>
+                    <TableHead className="text-right">Acción</TableHead>
                     <TableHead className="w-[50px]"></TableHead>
                   </TableRow>
                 </TableHeader>
@@ -587,8 +587,8 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
                           <div className={cn(isRedeemed && "opacity-60")}>
                             <div className="flex items-center gap-2 font-semibold text-foreground">
                               {card.campaignName}
-                              {isArchivedCampaign && <Badge variant="outline" className="text-[10px] uppercase tracking-wide">Archived campaign</Badge>}
-                              {isRedeemed && <span className="rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-bold uppercase text-gray-600">Redeemed</span>}
+                              {isArchivedCampaign && <Badge variant="outline" className="text-[10px] uppercase tracking-wide">Campaña archivada</Badge>}
+                              {isRedeemed && <span className="rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-bold uppercase text-gray-600">Canjeada</span>}
                             </div>
                             <div className="font-mono text-xs text-muted-foreground">ID: {card.uniqueId.slice(0, 8)}</div>
                           </div>
@@ -604,7 +604,7 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
                       </TableCell>
                       <TableCell className="text-right">
                         {isRedeemed ? (
-                          <div className="text-sm font-medium text-muted-foreground">Completed</div>
+                          <div className="text-sm font-medium text-muted-foreground">Completada</div>
                         ) : (
                           <div className="flex flex-col items-end gap-1">
                             <div className="text-sm font-bold">
@@ -626,8 +626,8 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
                             variant="outline"
                             className="h-9 w-9 rounded-full"
                             onClick={() => openPublicLink(card.uniqueId)}
-                            aria-label="Open public link"
-                            title="Open public link"
+                            aria-label="Abrir enlace público"
+                            title="Abrir enlace público"
                           >
                             <ExternalLink size={14} />
                           </Button>
@@ -638,7 +638,7 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
                             onClick={() => setActiveKioskData({ customer, card, template: campaign })}
                           >
                             {isRedeemed ? <Lock size={14} /> : <MonitorPlay size={14} />}
-                            {isRedeemed ? "View" : (canRedeem ? "Redeem" : "Kiosk")}
+                            {isRedeemed ? "Ver" : (canRedeem ? "Canjear" : "Quiosco")}
                           </Button>
                         </div>
                       </TableCell>
@@ -650,9 +650,9 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Manage Card</DropdownMenuLabel>
+                            <DropdownMenuLabel>Gestionar tarjeta</DropdownMenuLabel>
                             <DropdownMenuItem onClick={() => openPublicLink(card.uniqueId)}>
-                              <ExternalLink className="mr-2 h-4 w-4" /> Public Link
+                              <ExternalLink className="mr-2 h-4 w-4" /> Enlace público
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             {!isStaff && (
@@ -660,7 +660,7 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
                                 className="text-red-600"
                                 onClick={() => handleRevokeCard(customer.id, card.id)}
                               >
-                                <Trash className="mr-2 h-4 w-4" /> Revoke
+                                <Trash className="mr-2 h-4 w-4" /> Revocar
                               </DropdownMenuItem>
                             )}
                           </DropdownMenuContent>

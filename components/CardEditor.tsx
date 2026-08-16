@@ -539,7 +539,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
   const handleAssetUpload = async (kind: CampaignAssetKind, file: File | null) => {
     if (!file) return;
     if (!currentOwner?.id) {
-      setUploadError(kind, 'You must be signed in as the account owner to upload images.');
+      setUploadError(kind, 'Debes iniciar sesión como propietario de la cuenta para subir imágenes.');
       return;
     }
 
@@ -566,7 +566,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
     } catch (error) {
       setUploadError(
         kind,
-        error instanceof Error ? error.message : 'Unable to upload image right now. Please try again.'
+        error instanceof Error ? error.message : 'No se puede subir la imagen ahora. Inténtalo de nuevo.'
       );
     } finally {
       setUploadBusy(kind, false);
@@ -605,7 +605,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
       await onSave(template);
       navigate('/campaigns');
     } catch {
-      setSaveError('Unable to save this campaign right now. Please try again.');
+      setSaveError('No se puede guardar la campaña ahora. Inténtalo de nuevo.');
     } finally {
       setSaveBusy(false);
     }
@@ -628,7 +628,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
             />
           </div>
           <p className="mt-3 text-center text-sm font-medium uppercase tracking-widest text-muted-foreground lg:mt-8">
-            Live Preview
+            Vista previa
           </p>
         </div>
       </div>
@@ -640,8 +640,8 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                   <ArrowLeft size={20} />
               </Button>
               <div>
-                  <h1 className="text-2xl font-bold tracking-tight">Customize</h1>
-                  <p className="text-sm text-muted-foreground">Design your perfect loyalty card.</p>
+                  <h1 className="text-2xl font-bold tracking-tight">Personalizar</h1>
+                  <p className="text-sm text-muted-foreground">Diseña tu tarjeta de fidelidad perfecta.</p>
               </div>
             </div>
             <Button
@@ -650,7 +650,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
               className="lg:hidden shrink-0"
               onClick={() => setIsPreviewOpen(true)}
             >
-              Live Preview
+              Vista previa
             </Button>
         </div>
 
@@ -658,11 +658,11 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
             <Accordion type="multiple" value={openSections} onValueChange={setOpenSections} className="w-full">
                 <AccordionItem value="general">
                     <AccordionTrigger>
-                        <span className="flex items-center gap-2"><Type size={16}/> General Info</span>
+                        <span className="flex items-center gap-2"><Type size={16}/> Información general</span>
                     </AccordionTrigger>
                     <AccordionContent className="space-y-4 pt-2">
                         <div className="space-y-2">
-                            <Label htmlFor="businessName">Name</Label>
+                            <Label htmlFor="businessName">Nombre</Label>
                             <Input 
                                 id="businessName" 
                                 value={template.name} 
@@ -673,7 +673,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                         
                         <div className="space-y-4 pt-2">
                             <div className="flex items-center justify-between">
-                                <Label htmlFor="showLogo" className="text-sm font-medium">Show Main Logo</Label>
+                                <Label htmlFor="showLogo" className="text-sm font-medium">Mostrar logo principal</Label>
                                 <Switch 
                                     id="showLogo"
                                     checked={template.showLogo !== false}
@@ -685,7 +685,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                         {template.showLogo !== false && (
                           <div className="space-y-3">
                             <div className="space-y-2">
-                              <Label htmlFor="logoUpload">Upload Brand Logo</Label>
+                              <Label htmlFor="logoUpload">Subir logo de marca</Label>
                               <input
                                 id="logoUpload"
                                 ref={logoFileInputRef}
@@ -707,18 +707,18 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                                 onClick={() => openFilePicker('logo')}
                                 disabled={logoUploadBusy}
                               >
-                                {logoUploadBusy ? 'Uploading logo...' : 'Upload logo from device'}
+                                {logoUploadBusy ? 'Subiendo logo...' : 'Subir logo desde el dispositivo'}
                               </Button>
                               {logoSelectedFileName && (
                                 <p className="text-xs text-muted-foreground">
-                                  Selected: {logoSelectedFileName}
+                                  Seleccionado: {logoSelectedFileName}
                                 </p>
                               )}
                               <p className="text-xs text-muted-foreground">
-                                JPG, PNG, WebP, or SVG up to 2MB.
+                                JPG, PNG, WebP o SVG. Máximo 2MB.
                               </p>
                               {logoUploadBusy && (
-                                <p className="text-xs text-muted-foreground">Uploading logo...</p>
+                                <p className="text-xs text-muted-foreground">Subiendo logo...</p>
                               )}
                               {logoUploadError && (
                                 <p className="text-xs text-rose-700">{logoUploadError}</p>
@@ -728,7 +728,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                               )}
                             </div>
                             <div className="space-y-2">
-                              <Label htmlFor="logoImage">Brand Logo URL</Label>
+                              <Label htmlFor="logoImage">URL del logo de marca</Label>
                               <div className="flex gap-2">
                                 <Input
                                   id="logoImage"
@@ -740,20 +740,20 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                                   type="button"
                                   variant="outline"
                                   size="icon"
-                                  title="Clear Logo"
+                                  title="Quitar logo"
                                   onClick={() => void handleClearAsset('logo')}
                                   disabled={logoUploadBusy || !template.logoImage}
                                 >
                                   <X size={14} />
                                 </Button>
                               </div>
-                              <p className="text-xs text-muted-foreground">Replaces the default icon in the header.</p>
+                              <p className="text-xs text-muted-foreground">Reemplaza el ícono predeterminado en el encabezado.</p>
                             </div>
                           </div>
                         )}
 
                         <div className="space-y-2">
-                            <Label htmlFor="rewardName">Reward Name</Label>
+                            <Label htmlFor="rewardName">Nombre del premio</Label>
                             <Input 
                                 id="rewardName" 
                                 value={template.rewardName} 
@@ -762,18 +762,18 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="tagline">Tagline / Instruction</Label>
+                            <Label htmlFor="tagline">Eslogan / Instrucción</Label>
                             <Input 
                                 id="tagline" 
                                 value={template.tagline || ''} 
                                 onChange={(e) => handleChange('tagline', e.target.value)} 
-                                placeholder={`Collect ${template.totalStamps} stamps for a...`}
+                                placeholder={`Acumula ${template.totalStamps} sellos para...`}
                             />
-                            <p className="text-xs text-muted-foreground">Override the default "Collect X stamps..." text.</p>
+                            <p className="text-xs text-muted-foreground">Reemplaza el texto predeterminado "Acumula X sellos...".</p>
                         </div>
                         <div className="space-y-3">
                             <div className="flex items-center justify-between gap-3">
-                                <Label htmlFor="totalStamps">Number of Stamps</Label>
+                                <Label htmlFor="totalStamps">Número de sellos</Label>
                                 <span className="inline-flex min-w-12 items-center justify-center rounded-full bg-secondary px-3 py-1 text-sm font-semibold">
                                     {template.totalStamps}
                                 </span>
@@ -798,13 +798,13 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
 
                 <AccordionItem value="design">
                     <AccordionTrigger>
-                        <span className="flex items-center gap-2"><Palette size={16}/> Design & Colors</span>
+                        <span className="flex items-center gap-2"><Palette size={16}/> Diseño y colores</span>
                     </AccordionTrigger>
                     <AccordionContent className="space-y-6 pt-2">
                         <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                                <Label className="text-xs uppercase tracking-wider text-muted-foreground">Preset Palettes</Label>
-                                <span className="text-[10px] text-muted-foreground">Built-in themes</span>
+                                <Label className="text-xs uppercase tracking-wider text-muted-foreground">Paletas predeterminadas</Label>
+                                <span className="text-[10px] text-muted-foreground">Temas incluidos</span>
                             </div>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
@@ -823,7 +823,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                                                 ))}
                                             </div>
                                             <span className="truncate text-sm font-semibold">
-                                                {selectedPalette?.name ?? 'Custom Theme'}
+                                                {selectedPalette?.name ?? 'Tema personalizado'}
                                             </span>
                                         </div>
                                         <ChevronDown size={16} className="shrink-0 opacity-70" />
@@ -835,7 +835,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                                     className="w-[--radix-dropdown-menu-trigger-width] min-w-[280px] max-h-[18rem] overflow-y-auto rounded-lg border border-[#a8b0c3] bg-[#c8ceda] p-1.5 text-[#434b67] shadow-xl"
                                 >
                                     <p className="px-2 pb-1 pt-0.5 text-xs font-semibold tracking-wide text-[#68718d]">
-                                        Built-in Themes
+                                        Temas incluidos
                                     </p>
                                     {PALETTE_PRESETS.map((palette) => {
                                         const selected = isPaletteSelected(palette);
@@ -870,7 +870,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                         </div>
 
                         <div className="space-y-3">
-                            <Label className="text-xs uppercase tracking-wider text-muted-foreground">Background</Label>
+                            <Label className="text-xs uppercase tracking-wider text-muted-foreground">Fondo</Label>
                             <div className="flex items-center gap-3">
                                 <div className="h-10 w-10 rounded-full overflow-hidden border shadow-sm shrink-0 relative">
                                     <input 
@@ -882,11 +882,11 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                                 </div>
                                 <div className="flex-1 space-y-1">
                                     <Label className="text-xs">
-                                      {template.backgroundImage ? "Overlay Opacity" : "Color Intensity"} ({bgIntensity}%)
+                                      {template.backgroundImage ? "Opacidad de capa" : "Intensidad del color"} ({bgIntensity}%)
                                     </Label>
                                     <div className="flex items-center gap-2">
                                         <span className="text-[10px] text-muted-foreground">
-                                          {template.backgroundImage ? "Clear" : "Transparent"}
+                                          {template.backgroundImage ? "Claro" : "Transparente"}
                                         </span>
                                         <input 
                                             type="range" 
@@ -896,13 +896,13 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                                             onChange={(e) => updateColors('background', bgHex, parseInt(e.target.value))}
                                             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                                         />
-                                        <span className="text-[10px] text-muted-foreground">Solid</span>
+                                        <span className="text-[10px] text-muted-foreground">Sólido</span>
                                     </div>
                                 </div>
                             </div>
                             
                             <div className="space-y-2 mt-2">
-                                <Label htmlFor="backgroundUpload" className="text-xs">Upload Background Image</Label>
+                                <Label htmlFor="backgroundUpload" className="text-xs">Subir imagen de fondo</Label>
                                 <input
                                     id="backgroundUpload"
                                     ref={backgroundFileInputRef}
@@ -924,16 +924,16 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                                   onClick={() => openFilePicker('background')}
                                   disabled={backgroundUploadBusy}
                                 >
-                                  {backgroundUploadBusy ? 'Uploading background...' : 'Upload background from device'}
+                                  {backgroundUploadBusy ? 'Subiendo fondo...' : 'Subir fondo desde el dispositivo'}
                                 </Button>
                                 {backgroundSelectedFileName && (
                                   <p className="text-xs text-muted-foreground">
-                                    Selected: {backgroundSelectedFileName}
+                                    Seleccionado: {backgroundSelectedFileName}
                                   </p>
                                 )}
-                                <p className="text-xs text-muted-foreground">JPG, PNG, or WebP up to 6MB.</p>
+                                <p className="text-xs text-muted-foreground">JPG, PNG o WebP. Máximo 6MB.</p>
                                 {backgroundUploadBusy && (
-                                  <p className="text-xs text-muted-foreground">Uploading background...</p>
+                                  <p className="text-xs text-muted-foreground">Subiendo fondo...</p>
                                 )}
                                 {backgroundUploadError && (
                                   <p className="text-xs text-rose-700">{backgroundUploadError}</p>
@@ -944,7 +944,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                             </div>
 
                             <div className="space-y-1">
-                                <Label htmlFor="bgImage" className="text-xs">Background Image URL</Label>
+                                <Label htmlFor="bgImage" className="text-xs">URL de imagen de fondo</Label>
                                 <div className="flex gap-2">
                                     <Input 
                                         id="bgImage" 
@@ -958,7 +958,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                                       variant="outline"
                                       size="icon"
                                       onClick={() => void handleClearAsset('background')}
-                                      title="Clear Image"
+                                      title="Quitar imagen"
                                       disabled={backgroundUploadBusy || !template.backgroundImage}
                                     >
                                         <ImageIcon size={14} />
@@ -969,10 +969,10 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-3">
-                                <Label className="text-xs uppercase tracking-wider text-muted-foreground font-bold">Empty Slot</Label>
+                                <Label className="text-xs uppercase tracking-wider text-muted-foreground font-bold">Sello vacío</Label>
                                 
                                 <div className="space-y-1">
-                                    <p className="text-[10px] text-muted-foreground">Background</p>
+                                    <p className="text-[10px] text-muted-foreground">Fondo</p>
                                     <div className="flex items-center gap-2">
                                         <div className="h-8 w-8 rounded-md overflow-hidden border shadow-sm shrink-0 relative">
                                             <input 
@@ -987,7 +987,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                                 </div>
 
                                 <div className="space-y-1">
-                                    <p className="text-[10px] text-muted-foreground">Icon Color</p>
+                                    <p className="text-[10px] text-muted-foreground">Color de ícono</p>
                                     <div className="flex items-center gap-2">
                                         <div className="h-8 w-8 rounded-md overflow-hidden border shadow-sm shrink-0 relative">
                                             <input 
@@ -1003,10 +1003,10 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                             </div>
 
                             <div className="space-y-3">
-                                <Label className="text-xs uppercase tracking-wider text-muted-foreground font-bold">Filled Slot</Label>
+                                <Label className="text-xs uppercase tracking-wider text-muted-foreground font-bold">Sello lleno</Label>
                                 
                                 <div className="space-y-1">
-                                    <p className="text-[10px] text-muted-foreground">Background</p>
+                                    <p className="text-[10px] text-muted-foreground">Fondo</p>
                                     <div className="flex items-center gap-2">
                                         <div className="h-8 w-8 rounded-md overflow-hidden border shadow-sm shrink-0 relative">
                                             <input 
@@ -1021,7 +1021,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                                 </div>
 
                                 <div className="space-y-1">
-                                    <p className="text-[10px] text-muted-foreground">Icon Color</p>
+                                    <p className="text-[10px] text-muted-foreground">Color de ícono</p>
                                     <div className="flex items-center gap-2">
                                         <div className="h-8 w-8 rounded-md overflow-hidden border shadow-sm shrink-0 relative">
                                             <input 
@@ -1038,7 +1038,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                         </div>
 
                         <div className="space-y-2 pt-2 border-t">
-                            <Label className="text-xs uppercase tracking-wider text-muted-foreground">Main Text Color</Label>
+                            <Label className="text-xs uppercase tracking-wider text-muted-foreground">Color de texto principal</Label>
                             <div className="flex items-center gap-2">
                                 <div className="h-10 w-10 rounded-md overflow-hidden border shadow-sm shrink-0 relative">
                                     <input 
@@ -1057,7 +1057,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
 
                 <AccordionItem value="icons">
                     <AccordionTrigger>
-                        <span className="flex items-center gap-2"><Grid size={16}/> Icon</span>
+                        <span className="flex items-center gap-2"><Grid size={16}/> Ícono</span>
                     </AccordionTrigger>
                     <AccordionContent className="pt-2">
                         <div className="grid grid-cols-4 gap-2">
@@ -1086,7 +1086,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
 
                 <AccordionItem value="social">
                     <AccordionTrigger>
-                        <span className="flex items-center gap-2"><Smartphone size={16}/> Social</span>
+                        <span className="flex items-center gap-2"><Smartphone size={16}/> Redes sociales</span>
                     </AccordionTrigger>
                     <AccordionContent className="space-y-4 pt-2">
                         <div className="space-y-2">
@@ -1135,7 +1135,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="social-website">Website</Label>
+                            <Label htmlFor="social-website">Sitio web</Label>
                             <Input
                                 id="social-website"
                                 value={template.social?.website || ''}
@@ -1160,7 +1160,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
               onClick={handleSave}
               disabled={saveBusy || logoUploadBusy || backgroundUploadBusy}
             >
-                {saveBusy ? 'Saving...' : 'Save'} <CheckIcon size={20} />
+                {saveBusy ? 'Guardando...' : 'Guardar'} <CheckIcon size={20} />
             </Button>
         </div>
       </div>
@@ -1173,7 +1173,7 @@ export const CardEditor: React.FC<CardEditorProps> = ({ initialTemplate, onSave 
             [&>button]:bg-black/55 [&>button]:p-1 [&>button]:text-white [&>button]:opacity-100
           "
         >
-          <DialogTitle className="sr-only">Live card preview</DialogTitle>
+          <DialogTitle className="sr-only">Vista previa de la tarjeta</DialogTitle>
           <div className="mx-auto flex h-full w-full max-w-[430px] items-center justify-center py-6">
             <div className="h-full min-h-[360px] max-h-[86dvh] w-full overflow-hidden rounded-3xl bg-white ring-1 ring-black/5 shadow-lg">
               <LoyaltyCard

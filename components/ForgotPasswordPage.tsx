@@ -25,7 +25,7 @@ export const ForgotPasswordPage: React.FC = () => {
     event.preventDefault();
     setError("");
     if (!email.trim()) {
-      setError("Please enter your email address.");
+      setError("Por favor ingresa tu dirección de correo electrónico.");
       return;
     }
     setBusy(true);
@@ -41,9 +41,9 @@ export const ForgotPasswordPage: React.FC = () => {
   if (sent) {
     return (
       <AuthLayout
-        title="Check your inbox."
-        subtitle="We sent a password reset link to your email."
-        badge="Done"
+        title="Revisa tu bandeja de entrada."
+        subtitle="Enviamos un enlace de restablecimiento de contraseña a tu correo."
+        badge="Listo"
         theme="login"
       >
         <div className="space-y-6 text-center">
@@ -51,16 +51,16 @@ export const ForgotPasswordPage: React.FC = () => {
             <CheckCircle2 className="h-14 w-14 text-green-500" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-[#1d1d1f]">Reset link sent!</h2>
+            <h2 className="text-xl font-semibold text-[#1d1d1f]">¡Enlace enviado!</h2>
             <p className="mt-1 text-sm text-[#6e6e73]">
-              Check <span className="font-medium text-[#1d1d1f]">{email}</span> for a password reset link.
+              Revisa <span className="font-medium text-[#1d1d1f]">{email}</span> para encontrar el enlace de restablecimiento.
             </p>
           </div>
           <Link
             to="/login"
             className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#1d1d1f] text-base font-medium text-white shadow-sm hover:bg-black/80"
           >
-            Back to Sign In
+            Volver al inicio de sesión
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </div>
@@ -70,19 +70,19 @@ export const ForgotPasswordPage: React.FC = () => {
 
   return (
     <AuthLayout
-      title="Forgot your password?"
-      subtitle="Enter your account email and we'll send you a reset link."
-      badge="Reset password"
+      title="¿Olvidaste tu contraseña?"
+      subtitle="Ingresa el correo de tu cuenta y te enviaremos un enlace de restablecimiento."
+      badge="Restablecer contraseña"
       theme="login"
     >
       <form className="space-y-5" onSubmit={handleSubmit}>
         <div className="mb-2">
-          <h2 className="text-xl font-semibold text-[#1d1d1f]">Find your account</h2>
-          <p className="mt-1 text-sm text-[#6e6e73]">Enter the email you used to sign up.</p>
+          <h2 className="text-xl font-semibold text-[#1d1d1f]">Encuentra tu cuenta</h2>
+          <p className="mt-1 text-sm text-[#6e6e73]">Ingresa el correo que usaste para registrarte.</p>
         </div>
 
         <div className="space-y-1.5">
-          <label className={labelCls}>Email</label>
+          <label className={labelCls}>Correo electrónico</label>
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -105,14 +105,14 @@ export const ForgotPasswordPage: React.FC = () => {
           disabled={busy}
           className="h-12 w-full rounded-full bg-[#1d1d1f] text-base font-medium text-white shadow-sm hover:bg-black/80"
         >
-          {busy ? "Sending..." : "Send Reset Link"}
+          {busy ? "Enviando..." : "Enviar enlace de restablecimiento"}
           {!busy && <ArrowRight className="ml-2 h-4 w-4" />}
         </Button>
 
         <p className="text-center text-sm text-[#6e6e73]">
-          Remember your password?{" "}
+          ¿Recuerdas tu contraseña?{" "}
           <Link to="/login" className="font-semibold text-[#1d1d1f] underline-offset-2 hover:underline">
-            Sign in
+            Iniciar sesión
           </Link>
         </p>
       </form>

@@ -49,13 +49,13 @@ const defaultDismissState: DashboardDismissState = {
 const formatAction = (type: Transaction['type']) => {
   switch (type) {
     case 'issued':
-      return 'Card issued';
+      return 'Tarjeta emitida';
     case 'redeem':
-      return 'Reward redeemed';
+      return 'Premio canjeado';
     case 'stamp_remove':
-      return 'Stamp removed';
+      return 'Sello eliminado';
     default:
-      return 'Stamp added';
+      return 'Sello agregado';
   }
 };
 
@@ -98,25 +98,25 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
 
   const steps: ChecklistStep[] = [
     {
-      title: 'Create Campaign',
-      description: 'Create your first loyalty campaign.',
+      title: 'Crear campaña',
+      description: 'Crea tu primera campaña de fidelidad.',
       href: '/gallery',
       complete: campaigns.length > 0,
-      buttonLabel: 'Create campaign',
+      buttonLabel: 'Crear campaña',
     },
     {
-      title: 'Issue Card',
-      description: 'Issue your first loyalty card to a customer.',
+      title: 'Emitir tarjeta',
+      description: 'Emite tu primera tarjeta de fidelidad a un cliente.',
       href: '/issued-cards',
       complete: cards.length > 0,
-      buttonLabel: 'Issue card',
+      buttonLabel: 'Emitir tarjeta',
     },
     {
-      title: 'Stamp a Card',
-      description: 'Open an issued card and add the first stamp.',
+      title: 'Sellar una tarjeta',
+      description: 'Abre una tarjeta emitida y agrega el primer sello.',
       href: '/issued-cards',
       complete: hasStampActivity,
-      buttonLabel: 'Add stamp',
+      buttonLabel: 'Agregar sello',
     },
   ];
 
@@ -127,27 +127,27 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
 
   const statCards = [
     {
-      label: 'Campaigns',
+      label: 'Campañas',
       value: campaigns.length,
-      detail: campaigns.length === 1 ? '1 campaign live' : `${campaigns.length} campaigns live`,
+      detail: campaigns.length === 1 ? '1 campaña activa' : `${campaigns.length} campañas activas`,
       icon: CreditCard,
     },
     {
-      label: 'Issued Cards',
+      label: 'Tarjetas emitidas',
       value: cards.length,
-      detail: cards.length === 1 ? '1 card issued' : `${cards.length} cards issued`,
+      detail: cards.length === 1 ? '1 tarjeta emitida' : `${cards.length} tarjetas emitidas`,
       icon: Wallet,
     },
     {
-      label: 'Customers',
+      label: 'Clientes',
       value: customers.length,
-      detail: customers.length === 1 ? '1 customer added' : `${customers.length} customers added`,
+      detail: customers.length === 1 ? '1 cliente registrado' : `${customers.length} clientes registrados`,
       icon: Users,
     },
     {
-      label: 'Active Cards',
+      label: 'Tarjetas activas',
       value: activeCardCount,
-      detail: `${redeemedCardCount} redeemed`,
+      detail: `${redeemedCardCount} canjeadas`,
       icon: Sparkles,
     },
   ];
@@ -183,21 +183,21 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="space-y-2">
               <Badge variant="outline" className="w-fit rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.18em]">
-                Owner Overview
+                Resumen del negocio
               </Badge>
               <div>
-                <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">Dashboard</h1>
+                <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">Panel</h1>
                 <p className="mt-2 max-w-2xl text-sm text-muted-foreground md:text-base">
-                  Get your loyalty program live in three steps. Progress updates automatically as you create campaigns, issue cards, and start stamping.
+                  Pon tu programa de fidelidad en marcha en tres pasos. El progreso se actualiza automáticamente al crear campañas, emitir tarjetas y comenzar a sellar.
                 </p>
               </div>
             </div>
             <div className="flex flex-wrap gap-3">
               <Button asChild variant="outline" className="rounded-full">
-                <Link to="/campaigns">View Campaigns</Link>
+                <Link to="/campaigns">Ver campañas</Link>
               </Button>
               <Button asChild className="rounded-full">
-                <Link to="/gallery">Create Campaign</Link>
+                <Link to="/gallery">Crear campaña</Link>
               </Button>
             </div>
           </div>
@@ -209,21 +209,21 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <CardTitle className="text-xl">Get started</CardTitle>
+                    <CardTitle className="text-xl">Comenzar</CardTitle>
                     {setupComplete && (
                       <Button
                         variant="outline"
                         size="sm"
                         className="rounded-full border-red-200 bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-800"
                         onClick={() => dismissSection('getStarted')}
-                        aria-label="Dismiss get started"
+                        aria-label="Descartar inicio"
                       >
-                        Dismiss
+                        Descartar
                       </Button>
                     )}
                   </div>
                   <CardDescription className="mt-1 text-sm">
-                    Launch your loyalty program in three steps.
+                    Lanza tu programa de fidelidad en tres pasos.
                   </CardDescription>
                 </div>
                 <Badge
@@ -233,7 +233,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
                     setupComplete && 'bg-emerald-600 text-white hover:bg-emerald-600'
                   )}
                 >
-                  {setupComplete ? 'Setup complete' : `${completedSteps} of ${steps.length} completed`}
+                  {setupComplete ? 'Configuración completa' : `${completedSteps} de ${steps.length} completados`}
                 </Badge>
               </div>
               <div className="space-y-2">
@@ -245,11 +245,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
                 </div>
                 {setupComplete ? (
                   <p className="text-sm text-muted-foreground">
-                    Your loyalty workflow is ready. Jump back into campaigns or issued cards anytime.
+                    Tu flujo de fidelidad está listo. Vuelve a campañas o tarjetas emitidas cuando quieras.
                   </p>
                 ) : (
                   <p className="text-sm text-muted-foreground">
-                    Complete each step in order. The next action stays one click away.
+                    Completa cada paso en orden. La siguiente acción está a un clic.
                   </p>
                 )}
               </div>
@@ -277,7 +277,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
                           <h3 className="text-base font-semibold text-foreground">{step.title}</h3>
                           {step.complete && (
                             <Badge variant="outline" className="rounded-full border-emerald-200 bg-emerald-50 text-emerald-700">
-                              Completed
+                              Completado
                             </Badge>
                           )}
                         </div>
@@ -288,10 +288,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
                       <Button asChild variant="ghost" className="justify-start rounded-full md:justify-center">
                         <Link to={step.href}>
                           {setupComplete
-                            ? step.title === 'Create Campaign'
-                              ? 'Create another'
-                              : 'Open workflow'
-                            : 'Review'}
+                            ? step.title === 'Crear campaña'
+                              ? 'Crear otra'
+                              : 'Abrir flujo'
+                            : 'Revisar'}
                         </Link>
                       </Button>
                     ) : (
@@ -309,13 +309,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
               {setupComplete && (
                 <div className="flex flex-wrap gap-3 border-t border-border/70 pt-2">
                   <Button asChild variant="outline" className="rounded-full">
-                    <Link to="/gallery">Create Campaign</Link>
+                    <Link to="/gallery">Crear campaña</Link>
                   </Button>
                   <Button asChild variant="outline" className="rounded-full">
-                    <Link to="/campaigns">View Campaigns</Link>
+                    <Link to="/campaigns">Ver campañas</Link>
                   </Button>
                   <Button asChild variant="outline" className="rounded-full">
-                    <Link to="/issued-cards">View Issued Cards</Link>
+                    <Link to="/issued-cards">Ver tarjetas emitidas</Link>
                   </Button>
                 </div>
               )}
@@ -344,13 +344,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
           <CardHeader className="border-b border-border/70 pb-5">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <CardTitle className="text-xl">Recent activity</CardTitle>
+                <CardTitle className="text-xl">Actividad reciente</CardTitle>
                 <CardDescription className="mt-1">
-                  Latest transactions across all issued cards.
+                  Últimas transacciones en todas las tarjetas emitidas.
                 </CardDescription>
               </div>
               <div className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-                {recentActivity.length} shown
+                {recentActivity.length} mostradas
               </div>
             </div>
           </CardHeader>
@@ -360,9 +360,9 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-card shadow-subtle">
                   <ReceiptText size={20} className="text-muted-foreground" />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">No activity yet</h3>
+                <h3 className="text-lg font-semibold text-foreground">Sin actividad aún</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Complete the checklist above to get started.
+                  Completa la lista anterior para comenzar.
                 </p>
               </div>
             ) : (
@@ -385,13 +385,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ campaigns, custome
                       <div>
                         <p className="font-semibold text-foreground">{formatAction(transaction.type)}</p>
                         <p className="text-sm text-muted-foreground">
-                          {transaction.customerName} on {transaction.campaignName}
+                          {transaction.customerName} en {transaction.campaignName}
                         </p>
                       </div>
                     </div>
                     <div className="text-sm text-muted-foreground md:text-right">
                       <div>{formatTimestamp(transaction.timestamp)}</div>
-                      <div className="text-xs uppercase tracking-[0.14em]">{transaction.actorRole ?? 'owner'}</div>
+                      <div className="text-xs uppercase tracking-[0.14em]">{transaction.actorRole ?? 'propietario'}</div>
                     </div>
                   </div>
                 ))}

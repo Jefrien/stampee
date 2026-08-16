@@ -50,16 +50,16 @@ export const UpgradePrompt: React.FC<UpgradePromptProps> = ({
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 shadow-md">
               <Crown className="h-5 w-5 text-white" />
             </div>
-            <DialogTitle className="text-xl">Beta access limit reached</DialogTitle>
+            <DialogTitle className="text-xl">Límite de acceso beta alcanzado</DialogTitle>
           </div>
           <DialogDescription>
             {reason === "campaign"
-              ? `You have reached the current beta limit of ${limits.campaigns} campaigns.`
+              ? `Has alcanzado el límite beta de ${limits.campaigns} campañas.`
               : reason === "card"
-                ? `You have reached the current beta limit of ${limits.issuedCards} issued cards.`
+                ? `Has alcanzado el límite beta de ${limits.issuedCards} tarjetas emitidas.`
                 : reason === "staff"
-                  ? `You have reached the current beta limit of ${limits.staff} staff account.`
-                  : "This beta account has reached its current usage limit."}
+                  ? `Has alcanzado el límite beta de ${limits.staff} cuenta de personal.`
+                  : "Esta cuenta beta ha alcanzado su límite de uso."}
           </DialogDescription>
         </DialogHeader>
 
@@ -70,14 +70,14 @@ export const UpgradePrompt: React.FC<UpgradePromptProps> = ({
                 {currentUsage.campaigns}
                 <span className="text-sm font-normal text-muted-foreground">/{limits.campaigns}</span>
               </div>
-              <div className="mt-0.5 text-xs text-muted-foreground">Campaigns</div>
+              <div className="mt-0.5 text-xs text-muted-foreground">Campañas</div>
             </div>
             <div className="rounded-xl border bg-muted/30 p-3 text-center">
               <div className="text-2xl font-bold">
                 {currentUsage.cards}
                 <span className="text-sm font-normal text-muted-foreground">/{limits.issuedCards}</span>
               </div>
-              <div className="mt-0.5 text-xs text-muted-foreground">Issued Cards</div>
+              <div className="mt-0.5 text-xs text-muted-foreground">Tarjetas emitidas</div>
             </div>
             {currentUsage.staff !== undefined && (
               <div className="rounded-xl border bg-muted/30 p-3 text-center">
@@ -85,7 +85,7 @@ export const UpgradePrompt: React.FC<UpgradePromptProps> = ({
                   {currentUsage.staff}
                   <span className="text-sm font-normal text-muted-foreground">/{limits.staff}</span>
                 </div>
-                <div className="mt-0.5 text-xs text-muted-foreground">Staff</div>
+                <div className="mt-0.5 text-xs text-muted-foreground">Personal</div>
               </div>
             )}
           </div>
@@ -93,15 +93,15 @@ export const UpgradePrompt: React.FC<UpgradePromptProps> = ({
 
         <div className="mt-2 space-y-4 rounded-2xl border border-amber-200 bg-gradient-to-b from-amber-50 to-orange-50 p-5">
           <div>
-            <div className="text-lg font-bold text-foreground">Founder-assisted beta</div>
+            <div className="text-lg font-bold text-foreground">Beta asistida por el fundador</div>
             <div className="text-sm text-muted-foreground">
-              Need higher limits for your business? Reach out and we can expand your beta access manually.
+              ¿Necesitas más límites para tu negocio? Contáctanos y podemos ampliar tu acceso beta manualmente.
             </div>
           </div>
           <ul className="space-y-2 text-sm text-foreground">
-            <li>Manual review for higher campaign, card, or staff limits</li>
-            <li>Priority onboarding for local SMB beta users</li>
-            <li>Direct contact with the founder during the beta</li>
+            <li>Revisión manual para más límites de campañas, tarjetas o personal</li>
+            <li>Incorporación prioritaria para usuarios beta de pequeñas empresas</li>
+            <li>Contacto directo con el fundador durante la beta</li>
           </ul>
         </div>
 
@@ -117,7 +117,7 @@ export const UpgradePrompt: React.FC<UpgradePromptProps> = ({
             className="w-full text-muted-foreground"
             onClick={() => onOpenChange(false)}
           >
-            Close
+            Cerrar
           </Button>
         </DialogFooter>
       </DialogContent>

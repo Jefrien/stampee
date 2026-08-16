@@ -162,12 +162,12 @@ export const RewardModal: React.FC<RewardModalProps> = ({ isOpen, onClose, loadi
           </div>
           
           <h2 className="text-2xl font-bold">
-            {loading ? "Preparing Reward..." : "Card Completed!"}
+            {loading ? "Preparando premio..." : "¡Tarjeta completada!"}
           </h2>
 
           {loading ? (
              <p className="opacity-70" style={{ color: hexToRgba(mutedColor.hex, mutedColor.opacity) }}>
-               Preparing your reward...
+               Preparando tu premio...
              </p>
           ) : (
             <>
@@ -178,7 +178,7 @@ export const RewardModal: React.FC<RewardModalProps> = ({ isOpen, onClose, loadi
                 style={{ backgroundColor: panelBg.hex, borderColor: borderColor.hex }}
               >
                 <p className="text-xs uppercase tracking-wider mb-1 opacity-70" style={{ color: hexToRgba(mutedColor.hex, mutedColor.opacity) }}>
-                  Claim Your Reward
+                  Reclama tu premio
                 </p>
                 <p className="text-2xl font-mono font-bold tracking-widest">
                   {rewardName}
@@ -186,7 +186,7 @@ export const RewardModal: React.FC<RewardModalProps> = ({ isOpen, onClose, loadi
               </div>
 
               <p className="text-xs mt-1 opacity-50" style={{ color: hexToRgba(mutedColor.hex, mutedColor.opacity) }}>
-                Show this card to the staff of "{businessName}".
+                Muestra esta tarjeta al personal de "{businessName}".
               </p>
             </>
           )}

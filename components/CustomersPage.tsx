@@ -86,7 +86,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
     }
 
     if (digits.length > 0 && digits.length < 10) {
-        setMobileError("Enter 10 digits");
+        setMobileError("Ingresa 10 dígitos");
     } else {
         setMobileError("");
     }
@@ -98,7 +98,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
 
   const handleIssueCard = (campaign: Template, customer: Customer | null, newCustomerData: {name: string, email: string, mobile: string}): IssuedCard => {
       let targetCustomer = customer;
-      const actorName = currentUser?.businessName ?? "Owner";
+      const actorName = currentUser?.businessName ?? "Propietario";
       const actorRole = currentUser?.role ?? "owner";
       const actorId = currentUser?.id;
 
@@ -128,7 +128,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
               hour12: true 
           }),
           timestamp: now.getTime(),
-          title: "Card Issued",
+          title: "Tarjeta emitida",
           actorName,
           actorRole,
           actorId
@@ -187,7 +187,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
     // Create transaction
     const now = new Date();
     const txType = reset ? 'redeem' : (amount > 0 ? 'stamp_add' : 'stamp_remove');
-    const txTitle = reset ? 'Reward Redeemed' : (amount > 0 ? 'Stamp Collected' : 'Stamp Removed');
+    const txTitle = reset ? 'Premio canjeado' : (amount > 0 ? 'Sello agregado' : 'Sello eliminado');
     const newTransaction: Transaction = {
         id: `tx-${Date.now()}`,
         type: txType,
@@ -202,7 +202,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
         }),
         timestamp: now.getTime(),
         title: txTitle,
-        actorName: currentUser?.businessName ?? "Owner",
+        actorName: currentUser?.businessName ?? "Propietario",
         actorRole: currentUser?.role ?? "owner",
         actorId: currentUser?.id
     };
@@ -254,9 +254,9 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
                 hour12: true 
             }),
             timestamp: now.getTime(),
-            title: 'Stamp Removed',
-            remarks: 'Manual correction',
-            actorName: currentUser?.businessName ?? "Owner",
+            title: 'Sello eliminado',
+            remarks: 'Corrección manual',
+            actorName: currentUser?.businessName ?? "Propietario",
             actorRole: currentUser?.role ?? "owner",
             actorId: currentUser?.id
         };
@@ -297,11 +297,11 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
     <div className="p-8 space-y-6 animate-fade-in h-full flex flex-col">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-            <h1 className="text-3xl font-bold tracking-tight">Issued Cards</h1>
-            <p className="text-muted-foreground">Manage active cards across all campaigns.</p>
+            <h1 className="text-3xl font-bold tracking-tight">Tarjetas emitidas</h1>
+            <p className="text-muted-foreground">Gestiona tarjetas activas en todas las campañas.</p>
         </div>
         <Button onClick={openIssueWizard} className="gap-2 shadow-sm">
-            <Plus size={16} /> Issue New Card
+            <Plus size={16} /> Emitir nueva tarjeta
         </Button>
       </div>
 
@@ -317,7 +317,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
         <Search className="text-gray-400" size={20} />
         <input 
             className="flex-1 outline-none text-sm bg-transparent placeholder:text-muted-foreground" 
-            placeholder="Search by name, email, or campaign..." 
+            placeholder="Buscar por nombre, correo o campaña..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -327,11 +327,11 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/50">
-              <TableHead>Cardholder</TableHead>
-              <TableHead>Campaign</TableHead>
-              <TableHead>Contact</TableHead>
-              <TableHead className="text-right">Balance</TableHead>
-              <TableHead className="text-right">Last Visit</TableHead>
+              <TableHead>Titular</TableHead>
+              <TableHead>Campaña</TableHead>
+              <TableHead>Contacto</TableHead>
+              <TableHead className="text-right">Saldo</TableHead>
+              <TableHead className="text-right">Última visita</TableHead>
               <TableHead className="w-[50px]"></TableHead>
             </TableRow>
           </TableHeader>
@@ -339,7 +339,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
             {filteredList.length === 0 ? (
                 <TableRow>
                     <TableCell colSpan={6} className="text-center h-24 text-muted-foreground">
-                        No issued cards found.
+                        No se encontraron tarjetas emitidas.
                     </TableCell>
                 </TableRow>
             ) : (
@@ -382,33 +382,33 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-48">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                <DropdownMenuLabel>Acciones</DropdownMenuLabel>
                                 <DropdownMenuItem onClick={() => {
                                     const slug = currentOwner?.slug;
                                     if (!slug) return;
                                     window.open(buildPublicCardUrl(slug, card.uniqueId), '_blank');
                                 }} className="cursor-pointer">
-                                    <ExternalLink className="mr-2 h-4 w-4" /> Public View
+                                    <ExternalLink className="mr-2 h-4 w-4" /> Vista pública
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem 
                                     onClick={() => { setActiveCustomer(customer); setActiveCard(card); setIsStampOpen(true); }} 
                                     className="cursor-pointer font-medium text-green-600 focus:text-green-600"
                                 >
-                                    <Plus className="mr-2 h-4 w-4" /> Add Stamp
+                                    <Plus className="mr-2 h-4 w-4" /> Agregar sello
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
                                     onClick={() => handleRemoveStamp(customer, card)} 
                                     className="cursor-pointer text-orange-600 focus:text-orange-600" 
                                     disabled={card.stamps === 0}
                                 >
-                                    <Minus className="mr-2 h-4 w-4" /> Remove Stamp
+                                    <Minus className="mr-2 h-4 w-4" /> Eliminar sello
                                 </DropdownMenuItem>
                                 <DropdownMenuItem 
                                     onClick={() => { setActiveCustomer(customer); setActiveCard(card); setIsRedeemOpen(true); }} 
                                     className="cursor-pointer font-medium text-purple-600 focus:text-purple-600"
                                 >
-                                    <Gift className="mr-2 h-4 w-4" /> Redeem Reward
+                                    <Gift className="mr-2 h-4 w-4" /> Canjear premio
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem 
@@ -419,10 +419,10 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
                                     }} 
                                     className="cursor-pointer"
                                 >
-                                    <Edit className="mr-2 h-4 w-4" /> Edit Profile
+                                    <Edit className="mr-2 h-4 w-4" /> Editar perfil
                                 </DropdownMenuItem>
                                 <DropdownMenuItem className="text-red-600 focus:text-red-600 cursor-pointer" onClick={() => handleDeleteCard(customer.id, card.id)}>
-                                    <Trash className="mr-2 h-4 w-4" /> Revoke Card
+                                    <Trash className="mr-2 h-4 w-4" /> Revocar tarjeta
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -438,12 +438,12 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
         <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-                <DialogTitle>Edit Profile</DialogTitle>
-                <DialogDescription>Update contact details for {activeCustomer?.name}.</DialogDescription>
+                <DialogTitle>Editar perfil</DialogTitle>
+                <DialogDescription>Actualiza los datos de contacto de {activeCustomer?.name}.</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="edit-name" className="text-right">Name</Label>
+                    <Label htmlFor="edit-name" className="text-right">Nombre</Label>
                     <Input 
                         id="edit-name" 
                         value={editFormData.name} 
@@ -452,7 +452,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
                     />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="edit-email" className="text-right">Email</Label>
+                    <Label htmlFor="edit-email" className="text-right">Correo</Label>
                     <Input 
                         id="edit-email" 
                         value={editFormData.email} 
@@ -461,7 +461,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
                     />
                 </div>
                 <div className="grid grid-cols-4 items-start gap-4">
-                    <Label htmlFor="edit-mobile" className="text-right mt-3">Mobile</Label>
+                    <Label htmlFor="edit-mobile" className="text-right mt-3">Móvil</Label>
                     <div className="col-span-3 space-y-1">
                         <Input 
                             id="edit-mobile" 
@@ -475,8 +475,8 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
                 </div>
             </div>
             <DialogFooter>
-                <Button variant="outline" onClick={() => setIsEditOpen(false)}>Cancel</Button>
-                <Button onClick={handleEditSave} disabled={!!mobileError}>Save Changes</Button>
+                <Button variant="outline" onClick={() => setIsEditOpen(false)}>Cancelar</Button>
+                <Button onClick={handleEditSave} disabled={!!mobileError}>Guardar cambios</Button>
             </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -485,8 +485,8 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
        <Dialog open={isStampOpen} onOpenChange={setIsStampOpen}>
         <DialogContent className="sm:max-w-[400px]">
             <DialogHeader>
-                <DialogTitle>Add Stamp</DialogTitle>
-                <DialogDescription>Record a purchase for {activeCustomer?.name}?</DialogDescription>
+                <DialogTitle>Agregar sello</DialogTitle>
+                <DialogDescription>¿Registrar una compra para {activeCustomer?.name}?</DialogDescription>
             </DialogHeader>
             <div className="flex flex-col items-center justify-center py-8 gap-6">
                 <div className="relative">
@@ -498,7 +498,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
                      </div>
                 </div>
                 <div className="text-center space-y-1">
-                    <p className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">New Balance</p>
+                    <p className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">Nuevo saldo</p>
                     <div className="text-4xl font-bold flex items-center justify-center gap-3">
                          <span className="text-muted-foreground/30">{activeCard?.stamps}</span>
                          <span className="text-muted-foreground/30">→</span>
@@ -507,8 +507,8 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
                 </div>
             </div>
             <DialogFooter>
-                <Button variant="outline" onClick={() => setIsStampOpen(false)}>Cancel</Button>
-                <Button onClick={handleAddStamp} className="gap-2"><Stamp size={16}/> Confirm Stamp</Button>
+                <Button variant="outline" onClick={() => setIsStampOpen(false)}>Cancelar</Button>
+                <Button onClick={handleAddStamp} className="gap-2"><Stamp size={16}/> Confirmar sello</Button>
             </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -517,21 +517,21 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({ customers, campaig
       <Dialog open={isRedeemOpen} onOpenChange={setIsRedeemOpen}>
         <DialogContent className="sm:max-w-[400px]">
             <DialogHeader>
-                <DialogTitle>Redeem Reward</DialogTitle>
-                <DialogDescription>Deduct all stamps for reward?</DialogDescription>
+                <DialogTitle>Canjear premio</DialogTitle>
+                <DialogDescription>¿Descontar todos los sellos por el premio?</DialogDescription>
             </DialogHeader>
             <div className="flex flex-col items-center justify-center py-6 gap-6">
                 <div className="w-20 h-20 rounded-full bg-purple-50 flex items-center justify-center text-purple-600 border-4 border-purple-100">
                     <Gift size={32} />
                 </div>
                 <p className="text-center text-sm text-muted-foreground px-6">
-                    This will reset the <strong>{activeCard?.campaignName}</strong> stamp balance to 0.
+                    Esto reiniciará el saldo de sellos de <strong>{activeCard?.campaignName}</strong> a 0.
                 </p>
             </div>
             <DialogFooter>
-                <Button variant="outline" onClick={() => setIsRedeemOpen(false)}>Cancel</Button>
+                <Button variant="outline" onClick={() => setIsRedeemOpen(false)}>Cancelar</Button>
                 <Button onClick={handleRedeemReward} className="gap-2 bg-purple-600 hover:bg-purple-700 text-white">
-                    <Gift size={16}/> Confirm Redemption
+                    <Gift size={16}/> Confirmar canje
                 </Button>
             </DialogFooter>
         </DialogContent>

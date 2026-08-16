@@ -24,7 +24,7 @@ export const VerifyBanner: React.FC = () => {
       return;
     }
     trackEvent("Verification Email Resent", { role: currentOwner.role });
-    setMessage(result.message ?? "Verification email sent.");
+    setMessage(result.message ?? "Correo de verificación enviado.");
   };
 
   const handleRefresh = async () => {
@@ -33,9 +33,9 @@ export const VerifyBanner: React.FC = () => {
     setRefreshing(true);
     try {
       await refreshProfile();
-      setMessage("Verification status refreshed.");
+      setMessage("Estado de verificación actualizado.");
     } catch {
-      setError("Unable to refresh verification status right now. Please try again.");
+      setError("No se puede actualizar el estado de verificación ahora. Inténtalo de nuevo.");
     } finally {
       setRefreshing(false);
     }
@@ -50,13 +50,13 @@ export const VerifyBanner: React.FC = () => {
           </div>
           <div>
             <div className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-              Verify to issue cards
+              Verifica para emitir tarjetas
             </div>
             <div className="mt-1 text-base font-semibold text-foreground">
-              Check your inbox and confirm your email before issuing cards.
+              Revisa tu bandeja de entrada y confirma tu correo antes de emitir tarjetas.
             </div>
             <div className="mt-1 text-sm text-muted-foreground">
-              If the email is missing, resend it and then refresh this page after you confirm.
+              Si no ves el correo, reenvíalo y luego actualiza la página después de confirmar.
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ export const VerifyBanner: React.FC = () => {
             disabled={resending || refreshing}
           >
             <MailOpen className="mr-2" size={18} />
-            {resending ? "Sending..." : "Resend email"}
+            {resending ? "Enviando..." : "Reenviar correo"}
           </Button>
           <Button
             onClick={handleRefresh}
@@ -76,7 +76,7 @@ export const VerifyBanner: React.FC = () => {
             disabled={resending || refreshing}
           >
             <RefreshCcw className="mr-2" size={18} />
-            {refreshing ? "Refreshing..." : "Refresh status"}
+            {refreshing ? "Actualizando..." : "Actualizar estado"}
           </Button>
         </div>
       </div>

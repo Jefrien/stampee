@@ -4,9 +4,9 @@ import { ICON_REGISTRY } from '../lib/iconRegistry';
 export const templates: Template[] = [
   {
     id: 'cookie-classic',
-    name: 'Cookie Classic',
-    description: 'The original warm and cozy cookie loyalty card.',
-    rewardName: 'Free Jumbo Cookie',
+    name: 'Galleta Clásica',
+    description: 'La tarjeta de fidelidad original, cálida y acogedora, para los amantes de las galletas.',
+    rewardName: 'Galleta Jumbo Gratis',
     backgroundOpacity: 100,
     social: {
       instagram: '@cookieclassic',
@@ -31,9 +31,9 @@ export const templates: Template[] = [
   },
   {
     id: 'midnight-brew',
-    name: 'Midnight Brew',
-    description: 'Dark and sophisticated coffee shop vibes.',
-    rewardName: 'Free Handcrafted Drink',
+    name: 'Café de Medianoche',
+    description: 'Vibras oscuras y sofisticadas de una cafetería especializada.',
+    rewardName: 'Bebida Artesanal Gratis',
     backgroundOpacity: 100,
     social: {
       instagram: '@midnightbrew',
@@ -58,9 +58,9 @@ export const templates: Template[] = [
   },
   {
     id: 'pizza-party',
-    name: 'Pizza Party',
-    description: 'Fun and vibrant styles for the best slice in town.',
-    rewardName: 'Free Slice + Soda',
+    name: 'Fiesta de Pizza',
+    description: 'Estilo divertido y vibrante para la mejor rebanada de la ciudad.',
+    rewardName: 'Rebanada + Refresco Gratis',
     backgroundOpacity: 100,
     social: {
       instagram: '@pizzaparty',
@@ -85,9 +85,9 @@ export const templates: Template[] = [
   },
   {
     id: 'sweet-scoops',
-    name: 'Sweet Scoops',
-    description: 'Pastel perfection for ice cream lovers.',
-    rewardName: 'Free Sundae',
+    name: 'Cucharadas Dulces',
+    description: 'Perfección pastel para los amantes del helado.',
+    rewardName: 'Sundae Gratis',
     backgroundOpacity: 100,
     social: {
       instagram: '@sweetscoops',
@@ -113,9 +113,9 @@ export const templates: Template[] = [
   },
   {
     id: 'massage-bliss',
-    name: 'Massage Bliss',
-    description: 'Relax, unwind, and rejuvenate your senses.',
-    rewardName: 'Free 60min Massage',
+    name: 'Masaje de Ensueño',
+    description: 'Relájate, desconecta y rejuvenece tus sentidos.',
+    rewardName: 'Masaje de 60 min Gratis',
     backgroundOpacity: 100,
     social: {
       instagram: '@massagebliss',
@@ -140,9 +140,9 @@ export const templates: Template[] = [
   },
   {
     id: 'laundry-fresh',
-    name: 'Fresh Laundry',
-    description: 'Crisp, clean, and professional fabric care.',
-    rewardName: 'Free Dry Cleaning Item',
+    name: 'Lavandería Fresca',
+    description: 'Cuidado profesional de telas fresco, limpio e impecable.',
+    rewardName: 'Prenda en Tintorería Gratis',
     backgroundOpacity: 100,
     social: {
       instagram: '@laundryfresh',
@@ -167,9 +167,9 @@ export const templates: Template[] = [
   },
   {
     id: 'sharp-cuts',
-    name: 'Sharp Cuts',
-    description: 'Modern styling for the contemporary look.',
-    rewardName: 'Free Haircut or Trim',
+    name: 'Cortes Precisos',
+    description: 'Estilo moderno para un look contemporáneo.',
+    rewardName: 'Corte o Retoque Gratis',
     backgroundOpacity: 100,
     social: {
       instagram: '@sharpcuts',
@@ -194,9 +194,9 @@ export const templates: Template[] = [
   },
   {
     id: 'boba-time',
-    name: 'Boba Time',
-    description: 'Chewy pearls and creamy milk tea goodness.',
-    rewardName: 'Free Milk Tea w/ Topping',
+    name: 'Hora del Boba',
+    description: 'Perlas masticables y la delicia de un té cremoso.',
+    rewardName: 'Té con Leche y Topping Gratis',
     backgroundOpacity: 100,
     social: {
       instagram: '@bobatime',
@@ -221,9 +221,9 @@ export const templates: Template[] = [
   },
   {
     id: 'burger-joint',
-    name: 'Burger Joint',
-    description: 'Juicy, grilled-to-perfection gourmet burgers.',
-    rewardName: 'Free Classic Burger',
+    name: 'Hamburguesería',
+    description: 'Hamburguesas jugosas, a la parrilla y perfectas.',
+    rewardName: 'Hamburguesa Clásica Gratis',
     backgroundOpacity: 100,
     social: {
       instagram: '@burgerjoint',

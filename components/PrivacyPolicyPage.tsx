@@ -7,39 +7,39 @@ import { SUPPORT_EMAIL } from "../lib/siteConfig";
 
 const sections = [
   {
-    title: "Information we collect",
+    title: "Información que recopilamos",
     body:
-      "We collect the information needed to run Stampee, including account details, business profile information, loyalty campaign data, customer records you add to the platform, transaction history, and basic technical logs used to keep the service secure and working properly.",
+      "Recopilamos la información necesaria para ejecutar Stampee, incluyendo detalles de la cuenta, información del perfil comercial, datos de campañas de fidelidad, registros de clientes que agregues a la plataforma, historial de transacciones y registros técnicos básicos usados para mantener el servicio seguro y funcionando correctamente.",
   },
   {
-    title: "How we use information",
+    title: "Cómo usamos la información",
     body:
-      "We use this information to provide the product, authenticate users, issue and manage loyalty cards, process customer activity, support account administration, improve reliability, and prevent abuse or unauthorized access.",
+      "Usamos esta información para proporcionar el producto, autenticar usuarios, emitir y administrar tarjetas de fidelidad, procesar la actividad de los clientes, apoyar la administración de cuentas, mejorar la confiabilidad y prevenir abusos o accesos no autorizados.",
   },
   {
-    title: "Sharing and service providers",
+    title: "Compartir información y proveedores de servicios",
     body:
-      "We do not sell personal information. We may share data with infrastructure, analytics, authentication, or storage providers that help us operate Stampee, but only to the extent needed to deliver the service.",
+      "No vendemos información personal. Podemos compartir datos con proveedores de infraestructura, análisis, autenticación o almacenamiento que nos ayudan a operar Stampee, pero solo en la medida necesaria para entregar el servicio.",
   },
   {
-    title: "Cookies and local storage",
+    title: "Cookies y almacenamiento local",
     body:
-      "Stampee may use cookies, browser storage, and similar technologies to keep users signed in, remember preferences, and support normal application behavior.",
+      "Stampee puede usar cookies, almacenamiento del navegador y tecnologías similares para mantener a los usuarios conectados, recordar preferencias y soportar el comportamiento normal de la aplicación.",
   },
   {
-    title: "Data retention",
+    title: "Conservación de datos",
     body:
-      "We keep information for as long as it is needed to operate active accounts, meet legal obligations, resolve disputes, and maintain security or audit records. Retention periods may vary depending on the type of data involved.",
+      "Conservamos la información mientras sea necesario para operar cuentas activas, cumplir obligaciones legales, resolver disputas y mantener registros de seguridad o auditoría. Los períodos de conservación pueden variar según el tipo de datos involucrados.",
   },
   {
-    title: "Security",
+    title: "Seguridad",
     body:
-      "We use reasonable technical and organizational safeguards to protect the information processed through Stampee. No online system is completely risk free, so users should also protect account credentials and access to their devices.",
+      "Usamos salvaguardas técnicas y organizativas razonables para proteger la información procesada a través de Stampee. Ningún sistema en línea está completamente libre de riesgos, así que los usuarios también deben proteger las credenciales de la cuenta y el acceso a sus dispositivos.",
   },
   {
-    title: "Your choices",
+    title: "Tus opciones",
     body:
-      `Business owners can review and update core account and campaign information inside the product. If you need help with privacy-related requests, email ${SUPPORT_EMAIL}.`,
+      `Los dueños de negocios pueden revisar y actualizar la información principal de la cuenta y las campañas dentro del producto. Si necesitas ayuda con solicitudes relacionadas con la privacidad, escribe a ${SUPPORT_EMAIL}.`,
   },
 ];
 
@@ -54,7 +54,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           <Button asChild variant="ghost" className="rounded-full text-sm text-[#1d1d1f] hover:bg-black/[0.05]">
             <Link to="/">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Home
+              Inicio
             </Link>
           </Button>
         </div>

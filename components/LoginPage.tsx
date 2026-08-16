@@ -27,7 +27,7 @@ export const LoginPage: React.FC = () => {
   const withTimeout = async <T,>(promise: Promise<T>, ms = 15000): Promise<T> =>
     new Promise<T>((resolve, reject) => {
       const timeoutId = window.setTimeout(() => {
-        reject(new Error("Sign in timed out. Please try again."));
+        reject(new Error("Se agotó el tiempo de inicio de sesión. Inténtalo de nuevo."));
       }, ms);
       promise
         .then((value) => {
@@ -57,7 +57,7 @@ export const LoginPage: React.FC = () => {
         trackEvent("Login Success", { role: result.user?.role ?? "owner" });
       }
     } catch {
-      setError("Unable to sign in right now. Please try again.");
+      setError("No se puede iniciar sesión ahora. Inténtalo de nuevo.");
     } finally {
       setBusy(false);
     }
@@ -70,7 +70,7 @@ export const LoginPage: React.FC = () => {
     try {
       await withTimeout(loginDemo());
     } catch {
-      setError("Unable to sign in to demo right now. Please try again.");
+      setError("No se puede iniciar sesión en la demo ahora. Inténtalo de nuevo.");
     } finally {
       setBusy(false);
     }
@@ -81,18 +81,18 @@ export const LoginPage: React.FC = () => {
 
   return (
     <AuthSplitLayout
-      title="Welcome back"
-      subtitle="Log in to run campaigns, issue digital cards, and track loyalty activity from one place."
-      badge="Sign in"
+      title="Bienvenido de nuevo"
+      subtitle="Inicia sesión para gestionar campañas, emitir tarjetas digitales y seguir la actividad de fidelidad desde un solo lugar."
+      badge="Iniciar sesión"
       mode="login"
     >
       <form className="space-y-5" onSubmit={handleSubmit}>
         <p className="text-sm leading-6 text-[#6d6658]">
-          Owner access only. Staff members should continue using their dedicated portal link and PIN.
+          Solo para propietarios. El personal debe usar su enlace de portal y PIN dedicados.
         </p>
 
         <div className="space-y-1.5">
-          <label className={labelCls}>Email</label>
+          <label className={labelCls}>Correo electrónico</label>
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -106,18 +106,18 @@ export const LoginPage: React.FC = () => {
 
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <label className={labelCls}>Password</label>
+            <label className={labelCls}>Contraseña</label>
             <Link
               to="/forgot-password"
               className="text-[11px] text-[#6e6e73] underline-offset-2 hover:underline hover:text-[#1d1d1f]"
             >
-              Forgot password?
+              ¿Olvidaste tu contraseña?
             </Link>
           </div>
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Your password"
+            placeholder="Tu contraseña"
             className={inputCls}
             type="password"
             autoComplete="current-password"
@@ -136,10 +136,10 @@ export const LoginPage: React.FC = () => {
           disabled={isDisabled}
           className="h-14 w-full rounded-[1.2rem] bg-[#1b1813] text-base font-semibold text-white shadow-none hover:bg-[#11100d] disabled:opacity-60"
         >
-          {isSubmitting ? "Signing in..." : <>Continue <ArrowRight className="ml-2 h-4 w-4" /></>}
+          {isSubmitting ? "Iniciando sesión..." : <>Continuar <ArrowRight className="ml-2 h-4 w-4" /></>}
         </Button>
         {loading && !busy && (
-          <p className="text-center text-xs text-[#777062]">Checking existing session...</p>
+          <p className="text-center text-xs text-[#777062]">Verificando sesión existente...</p>
         )}
 
         {showDemoWorkspace && (
@@ -158,7 +158,7 @@ export const LoginPage: React.FC = () => {
               className="h-14 w-full rounded-[1.2rem] border-black/[0.08] bg-white text-base font-semibold text-[#171512] shadow-none hover:bg-[#f8f5ef]"
               onClick={handleDemo}
             >
-              Try Demo Workspace
+              Probar espacio de demo
             </Button>
           </>
         )}

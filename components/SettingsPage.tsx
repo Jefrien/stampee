@@ -168,29 +168,29 @@ export const SettingsPage: React.FC = () => {
   return (
     <div className="p-4 md:p-8 space-y-6 md:space-y-8 animate-fade-in h-full overflow-y-auto flex flex-col bg-gray-50/50">
       <div className="space-y-1">
-        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Settings</h1>
-        <p className="text-sm text-muted-foreground">Manage your profile, password, team, and account.</p>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Configuración</h1>
+        <p className="text-sm text-muted-foreground">Gestiona tu perfil, contraseña, equipo y cuenta.</p>
       </div>
 
       {/* Edit Profile */}
       <section className="rounded-2xl md:rounded-3xl border bg-white p-4 md:p-6 shadow-sm space-y-5">
         <div>
-          <h2 className="text-lg md:text-xl font-semibold">Edit Profile</h2>
-          <p className="text-sm text-muted-foreground">Update your business name and email address.</p>
+          <h2 className="text-lg md:text-xl font-semibold">Editar perfil</h2>
+          <p className="text-sm text-muted-foreground">Actualiza el nombre de tu negocio y correo electrónico.</p>
         </div>
         <form className="space-y-4" onSubmit={handleProfileSave}>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <Label>Business / Display Name</Label>
+              <Label>Nombre del negocio</Label>
               <Input
                 value={profileForm.businessName}
                 onChange={(e) => setProfileForm({ ...profileForm, businessName: e.target.value })}
-                placeholder="Your Business"
+                placeholder="Tu negocio"
                 required
               />
             </div>
             <div className="space-y-1.5">
-              <Label>Email Address</Label>
+              <Label>Dirección de correo</Label>
               <Input
                 value={profileForm.email}
                 onChange={(e) => setProfileForm({ ...profileForm, email: e.target.value })}
@@ -201,7 +201,7 @@ export const SettingsPage: React.FC = () => {
             </div>
             {currentUser?.role === "owner" && (
               <div className="space-y-1.5">
-                <Label>Public URL Slug</Label>
+                <Label>URL pública</Label>
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-muted-foreground shrink-0">stampee.co/</span>
                   <Input
@@ -210,7 +210,7 @@ export const SettingsPage: React.FC = () => {
                     className="bg-muted/40 text-muted-foreground cursor-not-allowed"
                   />
                 </div>
-                <p className="text-[11px] text-muted-foreground">Your public URL cannot be changed after signup.</p>
+                <p className="text-[11px] text-muted-foreground">Tu URL pública no puede cambiarse después del registro.</p>
               </div>
             )}
           </div>
@@ -226,7 +226,7 @@ export const SettingsPage: React.FC = () => {
           )}
           <div>
             <Button type="submit" className="rounded-full px-6" disabled={profileBusy}>
-              {profileBusy ? "Saving..." : "Save Profile"}
+              {profileBusy ? "Guardando..." : "Guardar perfil"}
             </Button>
           </div>
         </form>
@@ -235,13 +235,13 @@ export const SettingsPage: React.FC = () => {
       {/* Change Password */}
       <section className="rounded-2xl md:rounded-3xl border bg-white p-4 md:p-6 shadow-sm space-y-5">
         <div>
-          <h2 className="text-lg md:text-xl font-semibold">Change Password</h2>
-          <p className="text-sm text-muted-foreground">Update your account password. Must be at least 6 characters.</p>
+          <h2 className="text-lg md:text-xl font-semibold">Cambiar contraseña</h2>
+          <p className="text-sm text-muted-foreground">Actualiza tu contraseña. Mínimo 6 caracteres.</p>
         </div>
         <form className="space-y-4" onSubmit={handlePasswordSave}>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <Label>New Password</Label>
+              <Label>Nueva contraseña</Label>
               <Input
                 type="password"
                 value={passwordForm.next}
@@ -251,7 +251,7 @@ export const SettingsPage: React.FC = () => {
               />
             </div>
             <div className="space-y-1.5">
-              <Label>Confirm New Password</Label>
+              <Label>Confirmar nueva contraseña</Label>
               <Input
                 type="password"
                 value={passwordForm.confirm}
@@ -273,7 +273,7 @@ export const SettingsPage: React.FC = () => {
           )}
           <div>
             <Button type="submit" className="rounded-full px-6" disabled={passwordBusy}>
-              {passwordBusy ? "Changing..." : "Change Password"}
+              {passwordBusy ? "Cambiando..." : "Cambiar contraseña"}
             </Button>
           </div>
         </form>
@@ -282,18 +282,18 @@ export const SettingsPage: React.FC = () => {
       <section className="rounded-2xl md:rounded-3xl border bg-white p-4 md:p-6 shadow-sm space-y-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h2 className="text-lg md:text-xl font-semibold">Staff Accounts</h2>
+            <h2 className="text-lg md:text-xl font-semibold">Cuentas de personal</h2>
             <p className="text-sm text-muted-foreground">
-              Create staff logins for issuing cards and managing stamps.
+              Crea accesos para el personal para emitir tarjetas y gestionar sellos.
             </p>
           </div>
           {currentOwner?.slug && currentOwner?.id && (
             <div className="text-xs text-muted-foreground space-y-2 md:text-right">
               <div>
-                Org ID: <span className="font-mono break-all">{currentOwner.id}</span>
+                ID de organización: <span className="font-mono break-all">{currentOwner.id}</span>
               </div>
               <div className="text-[11px] text-muted-foreground/80">
-                Share this Org ID or portal link with staff.
+                Comparte este ID o enlace de portal con el personal.
               </div>
               <div className="flex items-center gap-2">
                 <Input
@@ -308,7 +308,7 @@ export const SettingsPage: React.FC = () => {
                   className="shrink-0"
                   onClick={() => navigator.clipboard.writeText(buildStaffPortalUrl(currentOwner.slug!, currentOwner.id))}
                 >
-                  Copy
+                  Copiar
                 </Button>
               </div>
             </div>
@@ -318,16 +318,16 @@ export const SettingsPage: React.FC = () => {
         <form className="space-y-3" onSubmit={handleCreate}>
           <div className="grid gap-3 sm:grid-cols-3">
             <div className="space-y-1.5">
-              <Label>Name</Label>
+              <Label>Nombre</Label>
               <Input
                 value={form.name}
                 onChange={(event) => setForm({ ...form, name: event.target.value })}
-                placeholder="Jamie Staff"
+                placeholder="Personal ejemplo"
                 required
               />
             </div>
             <div className="space-y-1.5">
-              <Label>Email</Label>
+              <Label>Correo</Label>
               <Input
                 value={form.email}
                 onChange={(event) => setForm({ ...form, email: event.target.value })}
@@ -341,14 +341,14 @@ export const SettingsPage: React.FC = () => {
               <Input
                 value={form.pin}
                 onChange={(event) => setForm({ ...form, pin: event.target.value })}
-                placeholder="4-6 digits"
+                placeholder="4-6 dígitos"
                 maxLength={6}
                 required
               />
             </div>
           </div>
           <Button type="submit" className="rounded-full h-10 px-6 w-full sm:w-auto" disabled={staffBusy}>
-            {staffBusy ? "Adding..." : "Add Staff"}
+            {staffBusy ? "Agregando..." : "Agregar personal"}
           </Button>
         </form>
 
@@ -367,14 +367,14 @@ export const SettingsPage: React.FC = () => {
         {/* Staff table — desktop */}
         <div className="hidden md:block rounded-2xl border border-slate-100 overflow-hidden">
           <div className="grid grid-cols-[1.2fr_1.4fr_0.8fr_auto] gap-4 px-4 py-3 text-xs uppercase tracking-wider text-muted-foreground bg-slate-50">
-            <span>Name</span>
-            <span>Email</span>
-            <span>Status</span>
-            <span className="text-right">Actions</span>
+            <span>Nombre</span>
+            <span>Correo</span>
+            <span>Estado</span>
+            <span className="text-right">Acciones</span>
           </div>
           {staffAccounts.length === 0 ? (
             <div className="px-4 py-6 text-sm text-muted-foreground">
-              No staff yet. Add your first teammate above.
+              Sin personal aún. Agrega al primero arriba.
             </div>
           ) : (
             staffAccounts.map((staff) => (
@@ -403,7 +403,7 @@ export const SettingsPage: React.FC = () => {
                       setResetError("");
                     }}
                   >
-                    Reset PIN
+                    Resetear PIN
                   </Button>
                   <Button
                     variant={staff.access === "active" ? "destructive" : "default"}
@@ -413,7 +413,7 @@ export const SettingsPage: React.FC = () => {
                       handleSetStaffAccess(staff.id, staff.access === "active" ? "disabled" : "active")
                     }
                   >
-                    {staffActionBusyId === staff.id ? "Saving..." : (staff.access === "active" ? "Disable" : "Enable")}
+                    {staffActionBusyId === staff.id ? "Guardando..." : (staff.access === "active" ? "Deshabilitar" : "Habilitar")}
                   </Button>
                   <Button
                     variant="destructive"
@@ -424,7 +424,7 @@ export const SettingsPage: React.FC = () => {
                       setDeleteStaffError("");
                     }}
                   >
-                    Delete
+                    Eliminar
                   </Button>
                 </div>
               </div>
@@ -436,7 +436,7 @@ export const SettingsPage: React.FC = () => {
         <div className="md:hidden space-y-3">
           {staffAccounts.length === 0 ? (
             <div className="rounded-2xl border border-slate-100 px-4 py-6 text-sm text-muted-foreground">
-              No staff yet. Add your first teammate above.
+              Sin personal aún. Agrega al primero arriba.
             </div>
           ) : (
             staffAccounts.map((staff) => (
@@ -468,7 +468,7 @@ export const SettingsPage: React.FC = () => {
                       setResetError("");
                     }}
                   >
-                    Reset PIN
+                    Resetear PIN
                   </Button>
                   <Button
                     variant={staff.access === "active" ? "destructive" : "default"}
@@ -479,7 +479,7 @@ export const SettingsPage: React.FC = () => {
                       handleSetStaffAccess(staff.id, staff.access === "active" ? "disabled" : "active")
                     }
                   >
-                    {staffActionBusyId === staff.id ? "Saving..." : (staff.access === "active" ? "Disable" : "Enable")}
+                    {staffActionBusyId === staff.id ? "Guardando..." : (staff.access === "active" ? "Deshabilitar" : "Habilitar")}
                   </Button>
                   <Button
                     variant="destructive"
@@ -491,7 +491,7 @@ export const SettingsPage: React.FC = () => {
                       setDeleteStaffError("");
                     }}
                   >
-                    Delete
+                    Eliminar
                   </Button>
                 </div>
               </div>
@@ -502,13 +502,13 @@ export const SettingsPage: React.FC = () => {
 
       <section className="rounded-2xl md:rounded-3xl border border-rose-200 bg-rose-50 p-4 md:p-6 shadow-sm space-y-4">
         <div className="space-y-1">
-          <h2 className="text-lg md:text-xl font-semibold text-rose-900">Danger Zone</h2>
+          <h2 className="text-lg md:text-xl font-semibold text-rose-900">Zona de peligro</h2>
           <p className="text-sm text-rose-800/90">
-            Delete your owner account, all staff logins, and all campaign/customer data for this business.
+            Elimina tu cuenta de propietario, todos los accesos del personal y todos los datos de campañas y clientes.
           </p>
         </div>
         <div className="rounded-2xl border border-rose-200 bg-white/70 px-4 py-3 text-xs text-rose-800">
-          This action is permanent and cannot be undone.
+          Esta acción es permanente y no puede deshacerse.
         </div>
         <div>
           <Button
@@ -520,7 +520,7 @@ export const SettingsPage: React.FC = () => {
               setIsDeleteStepOneOpen(true);
             }}
           >
-            Delete Account
+            Eliminar cuenta
           </Button>
         </div>
       </section>
@@ -528,14 +528,14 @@ export const SettingsPage: React.FC = () => {
       <Dialog open={!!resetTarget} onOpenChange={(open) => !open && !resetBusy && setResetTarget(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Reset PIN for {resetTarget?.name}</DialogTitle>
+            <DialogTitle>Resetear PIN para {resetTarget?.name}</DialogTitle>
           </DialogHeader>
           <div className="space-y-3">
-            <Label>New PIN</Label>
+            <Label>Nuevo PIN</Label>
             <Input
               value={resetPin}
               onChange={(event) => setResetPin(event.target.value)}
-              placeholder="4-6 digits"
+              placeholder="4-6 dígitos"
               maxLength={6}
             />
             {resetError && (
@@ -544,10 +544,10 @@ export const SettingsPage: React.FC = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setResetTarget(null)} disabled={resetBusy}>
-              Cancel
+              Cancelar
             </Button>
             <Button onClick={handleReset} disabled={resetBusy}>
-              {resetBusy ? "Updating..." : "Update PIN"}
+              {resetBusy ? "Actualizando..." : "Actualizar PIN"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -556,11 +556,11 @@ export const SettingsPage: React.FC = () => {
       <Dialog open={!!deleteStaffTarget} onOpenChange={(open) => !open && setDeleteStaffTarget(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete staff account?</DialogTitle>
+            <DialogTitle>¿Eliminar cuenta del personal?</DialogTitle>
           </DialogHeader>
           <div className="space-y-3">
             <p className="text-sm text-muted-foreground">
-              This will permanently remove <span className="font-semibold text-foreground">{deleteStaffTarget?.name}</span> and revoke their login access.
+              Esto eliminará permanentemente a <span className="font-semibold text-foreground">{deleteStaffTarget?.name}</span> y revocará su acceso de inicio de sesión.
             </p>
             {deleteStaffError && (
               <div className="text-sm text-rose-600">{deleteStaffError}</div>
@@ -568,10 +568,10 @@ export const SettingsPage: React.FC = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDeleteStaffTarget(null)}>
-              Cancel
+              Cancelar
             </Button>
             <Button variant="destructive" onClick={handleDeleteStaff} disabled={deleteStaffBusy}>
-              {deleteStaffBusy ? "Deleting..." : "Delete Staff"}
+              {deleteStaffBusy ? "Eliminando..." : "Eliminar personal"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -580,18 +580,18 @@ export const SettingsPage: React.FC = () => {
       <Dialog open={isDeleteStepOneOpen} onOpenChange={(open) => !deleteAccountBusy && setIsDeleteStepOneOpen(open)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete Account: Step 1 of 2</DialogTitle>
+            <DialogTitle>Eliminar cuenta: Paso 1 de 2</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-muted-foreground">
             <p>
-              You are about to delete <span className="font-semibold text-foreground">{currentOwner?.businessName}</span>.
+              Estás a punto de eliminar <span className="font-semibold text-foreground">{currentOwner?.businessName}</span>.
             </p>
-            <p>This will remove owner access, all staff accounts, campaigns, and customer history.</p>
-            <p className="text-rose-600 font-medium">This action cannot be undone.</p>
+            <p>Esto eliminará el acceso de propietario, todas las cuentas de personal, campañas e historial de clientes.</p>
+            <p className="text-rose-600 font-medium">Esta acción no puede deshacerse.</p>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsDeleteStepOneOpen(false)}>
-              Cancel
+              Cancelar
             </Button>
             <Button
               variant="destructive"
@@ -602,7 +602,7 @@ export const SettingsPage: React.FC = () => {
                 setIsDeleteStepTwoOpen(true);
               }}
             >
-              Continue
+              Continuar
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -621,12 +621,11 @@ export const SettingsPage: React.FC = () => {
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete Account: Step 2 of 2</DialogTitle>
+            <DialogTitle>Eliminar cuenta: Paso 2 de 2</DialogTitle>
           </DialogHeader>
           <div className="space-y-3">
             <p className="text-sm text-muted-foreground">
-              Type <span className="font-mono font-semibold text-foreground">{DELETE_CONFIRMATION}</span> to permanently
-              delete this account.
+              Escribe <span className="font-mono font-semibold text-foreground">{DELETE_CONFIRMATION}</span> para eliminar permanentemente esta cuenta.
             </p>
             <Input
               value={deleteConfirmText}
@@ -637,14 +636,14 @@ export const SettingsPage: React.FC = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsDeleteStepTwoOpen(false)} disabled={deleteAccountBusy}>
-              Cancel
+              Cancelar
             </Button>
             <Button
               variant="destructive"
               onClick={handleDeleteFinal}
               disabled={deleteAccountBusy || deleteConfirmText.trim().toUpperCase() !== DELETE_CONFIRMATION}
             >
-              {deleteAccountBusy ? "Deleting..." : "Permanently Delete"}
+              {deleteAccountBusy ? "Eliminando..." : "Eliminar permanentemente"}
             </Button>
           </DialogFooter>
         </DialogContent>

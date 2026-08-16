@@ -13,31 +13,31 @@ export const PublicFooter: React.FC = () => {
             to="/showcase"
             className="text-xs font-medium text-white/55 transition-colors hover:text-white"
           >
-            Demos & Templates
+            Demos y plantillas
           </Link>
           <Link
             to="/articles"
             className="text-xs font-medium text-white/55 transition-colors hover:text-white"
           >
-            Articles
+            Artículos
           </Link>
           <Link
             to="/privacy-policy"
             className="text-xs font-medium text-white/55 transition-colors hover:text-white"
           >
-            Privacy Policy
+            Política de privacidad
           </Link>
           <Link
             to="/cookie"
             className="text-xs font-medium text-white/55 transition-colors hover:text-white"
           >
-            Cookie Policy
+            Política de cookies
           </Link>
           <Link
             to="/terms"
             className="text-xs font-medium text-white/55 transition-colors hover:text-white"
           >
-            Terms
+            Términos
           </Link>
           <a
             href="mailto:hello@stampee.co"
@@ -45,7 +45,7 @@ export const PublicFooter: React.FC = () => {
           >
             hello@stampee.co
           </a>
-          <p className="text-xs text-white/25">© {new Date().getFullYear()} Stampee. All rights reserved.</p>
+          <p className="text-xs text-white/25">© {new Date().getFullYear()} Stampee. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

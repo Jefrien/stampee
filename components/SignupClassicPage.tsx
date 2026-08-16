@@ -28,7 +28,7 @@ export const SignupClassicPage: React.FC = () => {
   const withTimeout = async <T,>(promise: Promise<T>, ms = 15000): Promise<T> =>
     new Promise<T>((resolve, reject) => {
       const timeoutId = window.setTimeout(() => {
-        reject(new Error("Signup timed out. Please try again."));
+        reject(new Error("Se agotó el tiempo de registro. Inténtalo de nuevo."));
       }, ms);
       promise
         .then((value) => {
@@ -86,25 +86,25 @@ export const SignupClassicPage: React.FC = () => {
   const slugStatusLabel = !normalizedSlug
     ? ""
     : !slugValid
-    ? "Invalid"
+    ? "Inválido"
     : slugChecking
-    ? "Checking..."
+    ? "Verificando..."
     : slugCheckFailed
-    ? "Check failed"
+    ? "Error de verificación"
     : slugAvailable
-    ? "Available"
-    : "Taken";
+    ? "Disponible"
+    : "No disponible";
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError("");
     setInfo("");
     if (!slugValid) {
-      setError("Your public URL is invalid. Use lowercase letters, numbers, and hyphens only.");
+      setError("Tu URL pública es inválida. Usa solo letras minúsculas, números y guiones.");
       return;
     }
     if (!slugAvailable && !slugCheckFailed) {
-      setError("That public URL is already taken.");
+      setError("Esa URL pública ya está en uso.");
       return;
     }
     setBusy(true);
@@ -116,7 +116,7 @@ export const SignupClassicPage: React.FC = () => {
       }
       if (result.message) setInfo(result.message);
     } catch {
-      setError("Unable to create account right now. Please try again.");
+      setError("No se puede crear la cuenta ahora. Inténtalo de nuevo.");
     } finally {
       setBusy(false);
     }
@@ -131,19 +131,19 @@ export const SignupClassicPage: React.FC = () => {
 
   return (
     <AuthLayout
-      title="Launch in minutes."
-      subtitle="Set up your brand and launch a loyalty program your customers actually use."
-      badge="Get started"
+      title="Lanza en minutos."
+      subtitle="Configura tu marca y lanza un programa de fidelidad que tus clientes realmente usen."
+      badge="Comenzar"
       theme="signup"
     >
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="mb-2">
-          <h2 className="text-xl font-semibold text-[#1d1d1f]">Create your workspace</h2>
-          <p className="mt-1 text-sm text-[#6e6e73]">Free to start - no credit card required.</p>
+          <h2 className="text-xl font-semibold text-[#1d1d1f]">Crea tu espacio de trabajo</h2>
+          <p className="mt-1 text-sm text-[#6e6e73]">Gratis para empezar - sin tarjeta de crédito.</p>
         </div>
 
         <div className="space-y-1.5">
-          <label className={labelCls}>Business name</label>
+          <label className={labelCls}>Nombre del negocio</label>
           <Input
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
@@ -154,7 +154,7 @@ export const SignupClassicPage: React.FC = () => {
         </div>
 
         <div className="space-y-1.5">
-          <label className={labelCls}>Email</label>
+          <label className={labelCls}>Correo electrónico</label>
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -167,11 +167,11 @@ export const SignupClassicPage: React.FC = () => {
         </div>
 
         <div className="space-y-1.5">
-          <label className={labelCls}>Password</label>
+          <label className={labelCls}>Contraseña</label>
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="At least 8 characters"
+            placeholder="Mínimo 8 caracteres"
             className={inputCls}
             type="password"
             autoComplete="new-password"
@@ -181,7 +181,7 @@ export const SignupClassicPage: React.FC = () => {
 
         <div className="space-y-2 rounded-2xl border border-black/[0.07] bg-[#f5f5f7] p-3">
           <div className="flex items-center justify-between">
-            <label className={labelCls}>Your public URL</label>
+            <label className={labelCls}>Tu URL pública</label>
             {normalizedSlug && (
               <span
                 className={`text-[11px] font-semibold ${
@@ -213,11 +213,11 @@ export const SignupClassicPage: React.FC = () => {
           </div>
 
           <p className="text-xs text-[#6e6e73]">
-            {slugHint} Lowercase letters, numbers, and hyphens only.
+            {slugHint} Solo letras minúsculas, números y guiones.
           </p>
           {slugCheckFailed && (
             <p className="text-xs text-amber-700">
-              Could not verify URL availability right now. You can still continue.
+              No se pudo verificar la disponibilidad de la URL. Puedes continuar de todas formas.
             </p>
           )}
         </div>
@@ -238,17 +238,17 @@ export const SignupClassicPage: React.FC = () => {
           disabled={isDisabled}
           className="h-11 w-full rounded-full bg-[#1d1d1f] text-sm font-medium text-white shadow-sm hover:bg-black/80 disabled:opacity-40"
         >
-          {isSubmitting ? "Creating..." : "Create Workspace"}
+          {isSubmitting ? "Creando..." : "Crear espacio"}
           {!isSubmitting && <ArrowRight className="ml-2 h-4 w-4" />}
         </Button>
         {loading && !busy && (
-          <p className="text-center text-xs text-[#6e6e73]">Checking existing session...</p>
+          <p className="text-center text-xs text-[#6e6e73]">Verificando sesión existente...</p>
         )}
 
         <p className="text-center text-sm text-[#6e6e73]">
-          Already have an account?{" "}
+          ¿Ya tienes una cuenta?{" "}
           <Link to="/login" className="font-semibold text-[#1d1d1f] underline-offset-2 hover:underline">
-            Log in
+            Iniciar sesión
           </Link>
         </p>
       </form>

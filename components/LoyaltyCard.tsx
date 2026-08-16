@@ -336,9 +336,9 @@ export const LoyaltyCard: React.FC<LoyaltyCardProps> = ({
       {mode === 'preview' && onBack && (
          <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-50 bg-black/5 backdrop-blur-sm">
            <button onClick={onBack} className="text-sm font-semibold px-4 py-2 bg-white/50 rounded-full hover:bg-white/80 transition-all">
-             ← Templates
+             ← Plantillas
            </button>
-           <span className="text-xs uppercase tracking-widest opacity-50 font-bold">Preview Mode</span>
+           <span className="text-xs uppercase tracking-widest opacity-50 font-bold">Modo vista previa</span>
          </div>
       )}
 
@@ -368,7 +368,7 @@ export const LoyaltyCard: React.FC<LoyaltyCardProps> = ({
                         "w-10 h-10 rounded-full flex items-center justify-center border shadow-sm bg-white/20 backdrop-blur-md border-white/20",
                         "transition-transform hover:scale-105 active:scale-95 cursor-pointer"
                     )}
-                    aria-label="View Card Details"
+                    aria-label="Ver detalles de la tarjeta"
                  >
                     <QrCode size={20} className="" style={{ color: textColor.hex }} />
                  </button>
@@ -444,7 +444,7 @@ export const LoyaltyCard: React.FC<LoyaltyCardProps> = ({
                       )}
                       style={{ color: hexToRgba(mutedColor.hex, mutedColor.opacity) }}
                     >
-                    {template.tagline ? template.tagline : `Collect ${totalStamps} stamps for a ${rewardName}`}
+                    {template.tagline ? template.tagline : `Acumula ${totalStamps} sellos para ${rewardName}`}
                     </p>
                 )}
               </div>
@@ -492,10 +492,10 @@ export const LoyaltyCard: React.FC<LoyaltyCardProps> = ({
               {isCompleted && !isRedeemed && shouldShowRewardModal ? (
                  <div className="mt-3 flex flex-col items-center text-center">
                    <h3 className={cn("text-lg md:text-2xl font-bold text-gray-900 mt-1", isMobileCompleted && "text-base")}>
-                     🎉 Congratulations! 🎉
+                     🎉 ¡Felicitaciones! 🎉
                    </h3>
                    <p className={cn("text-base md:text-lg text-gray-600 leading-snug", isMobileCompleted && "text-sm")}>
-                      Your next <strong>{rewardName}</strong> is free! Please show this to the staff.
+                      ¡Tu próximo <strong>{rewardName}</strong> es gratis! Muestra esto al personal.
                    </p>
                  </div>
               ) : (
@@ -506,7 +506,7 @@ export const LoyaltyCard: React.FC<LoyaltyCardProps> = ({
                     )}
                     style={{ color: textColor.hex }}
                   >
-                    <p>Reward: {rewardName}</p>
+                    <p>Premio: {rewardName}</p>
                   </div>
               )}
 
@@ -549,7 +549,7 @@ export const LoyaltyCard: React.FC<LoyaltyCardProps> = ({
                        <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
                            <Icon size={16} className="text-gray-900"/>
                        </div>
-                       <span className="font-bold text-sm tracking-wide uppercase text-gray-500">History</span>
+                       <span className="font-bold text-sm tracking-wide uppercase text-gray-500">Historial</span>
                    </div>
                    <button 
                      onClick={() => setCurrentSlide(0)} 
@@ -588,12 +588,12 @@ export const LoyaltyCard: React.FC<LoyaltyCardProps> = ({
                       <div className="text-center space-y-1">
                         {customerName && (
                           <div className="text-sm text-gray-700">
-                            Issued to <span className="font-semibold">{customerName}</span>
+                            Emitida a <span className="font-semibold">{customerName}</span>
                           </div>
                         )}
                         {cardId && (
                           <div className="text-xs text-gray-400 font-mono">
-                            Card ID: {cardId}
+                            ID de tarjeta: {cardId}
                           </div>
                         )}
                       </div>
@@ -607,13 +607,13 @@ export const LoyaltyCard: React.FC<LoyaltyCardProps> = ({
                 )}>
                     <div className="flex items-center gap-2 mb-4">
                         <History size={16} className="text-gray-400" />
-                        <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Activity Log</span>
+                        <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Registro de actividad</span>
                     </div>
                     
                     <div className="w-full">
                          <div className="w-full p-0 space-y-4">
                             {history.length === 0 ? (
-                                <p className="text-center text-gray-400 text-sm py-4 italic">No activity yet.</p>
+                                <p className="text-center text-gray-400 text-sm py-4 italic">Sin actividad aún.</p>
                             ) : (
                                 history.map((tx) => {
                                     const TxIcon = getTransactionIcon(tx.type);
@@ -671,7 +671,7 @@ export const LoyaltyCard: React.FC<LoyaltyCardProps> = ({
              onClick={onCreate}
              className="shadow-2xl hover:scale-105 active:scale-95 transition-all bg-black text-white px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2"
            >
-             Create <Icon size={20} />
+             Crear <Icon size={20} />
            </button>
         </div>
       )}

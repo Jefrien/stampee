@@ -25,7 +25,7 @@ export const StaffLoginPage: React.FC = () => {
   const withTimeout = async <T,>(promise: Promise<T>, ms = 15000): Promise<T> =>
     new Promise<T>((resolve, reject) => {
       const timeoutId = window.setTimeout(() => {
-        reject(new Error("Login timed out. Please try again."));
+        reject(new Error("Se agotó el tiempo de inicio de sesión. Inténtalo de nuevo."));
       }, ms);
       promise
         .then((value) => {
@@ -61,7 +61,7 @@ export const StaffLoginPage: React.FC = () => {
       }
       navigate(kioskId ? buildIssuedCardsKioskUrl(kioskId) : "/issued-cards");
     } catch {
-      setError("Unable to log in right now. Please try again.");
+      setError("No se puede iniciar sesión ahora. Inténtalo de nuevo.");
     } finally {
       setBusy(false);
     }
@@ -71,24 +71,24 @@ export const StaffLoginPage: React.FC = () => {
 
   return (
     <AuthSplitLayout
-      title="Staff portal"
-      subtitle="Log in with your email, PIN, and Org ID to issue cards, scan kiosk traffic, and keep the line moving."
-      badge="Team access"
+      title="Portal de personal"
+      subtitle="Inicia sesión con tu correo, PIN e ID de organización para emitir tarjetas, escanear el tráfico del quiosco y mantener la fila en movimiento."
+      badge="Acceso de equipo"
       mode="staff"
     >
       <form className="space-y-5" onSubmit={handleSubmit}>
         <p className="text-sm leading-6 text-[#6d6658]">
-          Staff credentials remain separate from owner login and stay tied to the correct business Org ID.
+          Las credenciales del personal se mantienen separadas del inicio de sesión del propietario y están vinculadas al ID de organización del negocio.
         </p>
 
         {kioskId && (
           <div className="rounded-[1.35rem] border border-black/[0.08] bg-[#fbf3e6] px-4 py-4 text-sm text-[#6a5845]">
-            Kiosk session detected. After login you will be sent straight into the scan flow for this device.
+            Sesión de quiosco detectada. Después de iniciar sesión serás dirigido directamente al flujo de escaneo para este dispositivo.
           </div>
         )}
 
         <div className="space-y-1.5">
-          <label className={labelCls}>Email</label>
+          <label className={labelCls}>Correo electrónico</label>
           <Input
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -105,7 +105,7 @@ export const StaffLoginPage: React.FC = () => {
           <Input
             value={pin}
             onChange={(event) => setPin(event.target.value)}
-            placeholder="4-6 digits"
+            placeholder="4-6 dígitos"
             className={inputCls}
             type="password"
             inputMode="numeric"
@@ -115,19 +115,19 @@ export const StaffLoginPage: React.FC = () => {
         </div>
 
         <div className="space-y-1.5">
-          <label className={labelCls}>Org ID</label>
+          <label className={labelCls}>ID de organización</label>
           <Input
             value={orgId}
             onChange={(event) => setOrgId(event.target.value)}
-            placeholder="owner business ID"
+            placeholder="ID del negocio propietario"
             className={`${inputCls} font-mono`}
             required
             disabled={hasPrefilledOrgId}
           />
           <p className="text-xs leading-6 text-[#6d6658]">
             {hasPrefilledOrgId
-              ? "This Org ID was pre-filled from your staff portal link."
-              : "Ask your owner for the Org ID from Settings if you do not already have the portal link."}
+              ? "Este ID de organización fue prellenado desde tu enlace de portal de personal."
+              : "Solicita al propietario el ID de organización desde Configuración si no tienes el enlace del portal."}
           </p>
         </div>
 
@@ -142,14 +142,14 @@ export const StaffLoginPage: React.FC = () => {
           className="h-14 w-full rounded-[1.2rem] bg-[#1b1813] text-base font-semibold text-white shadow-none hover:bg-[#11100d]"
           disabled={busy}
         >
-          {busy ? "Logging in..." : "Log in as Staff"}
+          {busy ? "Iniciando sesión..." : "Iniciar sesión como personal"}
           {!busy && <ArrowRight className="ml-2 h-4 w-4" />}
         </Button>
 
         <div className="rounded-[1.35rem] border border-black/[0.08] bg-[#f5f1e8] px-4 py-4 text-sm text-[#6d6658]">
-          Owner login?{" "}
+          ¿Eres propietario?{" "}
           <Link to="/login" className="font-semibold text-[#171512] underline-offset-2 hover:underline">
-            Go to main login
+            Ir al inicio de sesión principal
           </Link>
         </div>
       </form>

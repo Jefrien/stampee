@@ -17,13 +17,13 @@ interface SidebarContentProps {
 }
 
 export const NAV_ITEMS = [
-  { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['owner'] },
-  { path: '/campaigns', label: 'Campaigns', icon: CreditCard, roles: ['owner'] },
-  { path: '/issued-cards', label: 'Issued Cards', icon: Wallet, roles: ['owner', 'staff'] },
-  { path: '/transactions', label: 'Transactions', icon: History, roles: ['owner'] },
-  { path: '/customers', label: 'Customers', icon: Users, roles: ['owner', 'staff'] },
-  { path: '/analytics', label: 'Analytics', icon: Sparkles, roles: ['owner'] },
-  { path: '/settings', label: 'Settings', icon: Settings, roles: ['owner'] },
+  { path: '/dashboard', label: 'Panel', icon: LayoutDashboard, roles: ['owner'] },
+  { path: '/campaigns', label: 'Campañas', icon: CreditCard, roles: ['owner'] },
+  { path: '/issued-cards', label: 'Tarjetas emitidas', icon: Wallet, roles: ['owner', 'staff'] },
+  { path: '/transactions', label: 'Transacciones', icon: History, roles: ['owner'] },
+  { path: '/customers', label: 'Clientes', icon: Users, roles: ['owner', 'staff'] },
+  { path: '/analytics', label: 'Analítica', icon: Sparkles, roles: ['owner'] },
+  { path: '/settings', label: 'Configuración', icon: Settings, roles: ['owner'] },
 ];
 
 const PlanBadge: React.FC = () => {
@@ -41,7 +41,7 @@ const PlanBadge: React.FC = () => {
     return (
       <div className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 px-3 py-2 text-xs">
         <Crown size={14} className="text-amber-500" />
-        <span className="font-semibold text-amber-700">Pro Plan</span>
+        <span className="font-semibold text-amber-700">Plan Pro</span>
       </div>
     );
   }
@@ -49,13 +49,13 @@ const PlanBadge: React.FC = () => {
   return (
     <div className="rounded-lg border border-border/80 bg-muted/30 px-3 py-2.5 text-xs space-y-1.5">
       <div className="flex items-center justify-between">
-        <span className="font-semibold text-foreground">Beta Plan</span>
+        <span className="font-semibold text-foreground">Plan Beta</span>
         <Sparkles size={12} className="text-muted-foreground" />
       </div>
       <div className="flex items-center gap-3 text-muted-foreground">
-        <span>{campaignCount}/{campaignLimit === Infinity ? '∞' : campaignLimit} campaigns</span>
+        <span>{campaignCount}/{campaignLimit === Infinity ? '∞' : campaignLimit} campañas</span>
         <span className="text-border">|</span>
-        <span>{issuedCardCount}/{cardLimit === Infinity ? '∞' : cardLimit} cards</span>
+        <span>{issuedCardCount}/{cardLimit === Infinity ? '∞' : cardLimit} tarjetas</span>
       </div>
     </div>
   );
@@ -101,7 +101,7 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({ onNavigate, onSc
               }}
             >
               <QrCode size={20} />
-              Scan QR Code
+              Escanear código QR
             </Button>
           )}
         </div>
@@ -112,7 +112,7 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({ onNavigate, onSc
           <div className="rounded-lg border border-border/80 bg-card px-3 py-3 text-xs text-muted-foreground shadow-subtle">
               <div className="font-semibold text-foreground">{currentUser.businessName}</div>
               <div className="font-mono">@{currentOwner?.slug ?? "staff"}</div>
-              {isStaff && <div className="text-[10px] uppercase tracking-widest mt-1">Staff Access</div>}
+              {isStaff && <div className="text-[10px] uppercase tracking-widest mt-1">Acceso de personal</div>}
           </div>
          )}
          <Button
@@ -124,7 +124,7 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({ onNavigate, onSc
             }}
          >
             <LogOut size={20} />
-            Log Out
+            Cerrar sesión
          </Button>
          <div className="px-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground/70">
             v0.5

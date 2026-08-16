@@ -148,10 +148,10 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({ customers })
 
   const getLabel = (type: Transaction['type']) => {
       switch(type) {
-          case 'redeem': return "Redeemed";
-          case 'stamp_remove': return "Removed";
-          case 'issued': return "Issued";
-          default: return "Stamp";
+          case 'redeem': return "Canjeado";
+          case 'stamp_remove': return "Eliminado";
+          case 'issued': return "Emitido";
+          default: return "Sello";
       }
   };
 
@@ -159,8 +159,8 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({ customers })
     <div className="p-4 md:p-8 space-y-6 animate-fade-in h-full flex flex-col bg-gray-50/50">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-                <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Transactions</h1>
-                <p className="text-muted-foreground">History of all stamps, redemptions, and issuances.</p>
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Transacciones</h1>
+                <p className="text-muted-foreground">Historial de todos los sellos, canjes y emisiones.</p>
             </div>
         </div>
 
@@ -170,7 +170,7 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({ customers })
                 <Search className="text-gray-400" size={20} />
                 <Input 
                     className="flex-1 border-none shadow-none focus-visible:ring-0 px-0 bg-transparent" 
-                    placeholder="Search by name, card ID, or campaign..." 
+                    placeholder="Buscar por nombre, ID de tarjeta o campaña..." 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -186,7 +186,7 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({ customers })
                 />
                 {dateFilter && (
                     <button onClick={() => setDateFilter("")} className="ml-2 text-xs text-muted-foreground hover:text-foreground">
-                        Clear
+                        Limpiar
                     </button>
                 )}
             </div>
@@ -200,11 +200,11 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({ customers })
                     disabled={filteredTransactions.length === 0}
                  >
                     <Download size={16} />
-                    Export CSV
+                    Exportar CSV
                  </Button>
                  <Button variant="ghost" size="sm" onClick={toggleSort} className="gap-2 text-muted-foreground">
                     <ArrowUpDown size={16} />
-                    {sortOrder === 'desc' ? 'Newest First' : 'Oldest First'}
+                    {sortOrder === 'desc' ? 'Más recientes primero' : 'Más antiguos primero'}
                  </Button>
             </div>
         </div>
@@ -214,12 +214,12 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({ customers })
             <Table>
                 <TableHeader>
                     <TableRow className="bg-muted/30">
-                        <TableHead className="w-[180px]">Date & Time</TableHead>
-                        <TableHead>Customer</TableHead>
-                        <TableHead>Campaign / Card ID</TableHead>
-                        <TableHead>Action</TableHead>
-                        <TableHead>By</TableHead>
-                        <TableHead className="text-right">Remarks</TableHead>
+                        <TableHead className="w-[180px]">Fecha y hora</TableHead>
+                        <TableHead>Cliente</TableHead>
+                        <TableHead>Campaña / ID de tarjeta</TableHead>
+                        <TableHead>Acción</TableHead>
+                        <TableHead>Por</TableHead>
+                        <TableHead className="text-right">Notas</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -227,7 +227,7 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({ customers })
                         <TableRow>
                             <TableCell colSpan={6} className="text-center h-32 text-muted-foreground flex-col gap-2">
                                 <div className="flex justify-center mb-2"><History size={24} className="opacity-20"/></div>
-                                No transactions found matching your filters.
+                                No se encontraron transacciones con los filtros seleccionados.
                             </TableCell>
                         </TableRow>
                     ) : (
@@ -261,10 +261,10 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({ customers })
                                 <TableCell>
                                     <div className="flex flex-col">
                                         <span className="text-sm font-medium">
-                                            {tx.actorName || "Owner"}
+                                            {tx.actorName || "Propietario"}
                                         </span>
                                         <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
-                                            {tx.actorRole === "staff" ? "Staff" : "Owner"}
+                                            {tx.actorRole === "staff" ? "Personal" : "Propietario"}
                                         </span>
                                     </div>
                                 </TableCell>
@@ -279,11 +279,11 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({ customers })
         </div>
         <div className="flex flex-col items-center gap-3">
             <div className="text-xs text-muted-foreground text-center">
-                Showing {visibleTransactions.length} of {filteredTransactions.length} transaction{filteredTransactions.length !== 1 && 's'}
+                Mostrando {visibleTransactions.length} de {filteredTransactions.length} transacción{filteredTransactions.length !== 1 ? 'es' : ''}
             </div>
             {hasMoreTransactions && (
                 <Button variant="outline" size="sm" onClick={handleLoadMore}>
-                    Load more
+                    Cargar más
                 </Button>
             )}
         </div>

@@ -26,7 +26,7 @@ export const LoginClassicPage: React.FC = () => {
   const withTimeout = async <T,>(promise: Promise<T>, ms = 15000): Promise<T> =>
     new Promise<T>((resolve, reject) => {
       const timeoutId = window.setTimeout(() => {
-        reject(new Error("Sign in timed out. Please try again."));
+        reject(new Error("Se agotó el tiempo de inicio de sesión. Inténtalo de nuevo."));
       }, ms);
       promise
         .then((value) => {
@@ -55,7 +55,7 @@ export const LoginClassicPage: React.FC = () => {
         trackEvent("Login Success", { role: result.user?.role ?? "owner" });
       }
     } catch {
-      setError("Unable to sign in right now. Please try again.");
+      setError("No se puede iniciar sesión ahora. Inténtalo de nuevo.");
     } finally {
       setBusy(false);
     }
@@ -67,7 +67,7 @@ export const LoginClassicPage: React.FC = () => {
     try {
       await withTimeout(loginDemo());
     } catch {
-      setError("Unable to sign in to demo right now. Please try again.");
+      setError("No se puede iniciar sesión en la demo ahora. Inténtalo de nuevo.");
     } finally {
       setBusy(false);
     }
@@ -78,19 +78,19 @@ export const LoginClassicPage: React.FC = () => {
 
   return (
     <AuthLayout
-      title="Welcome back."
-      subtitle="Manage campaigns, issue stamps, and track loyalty performance in real time."
-      badge="Sign in"
+      title="Bienvenido de nuevo."
+      subtitle="Gestiona campañas, emite sellos y sigue el rendimiento de fidelidad en tiempo real."
+      badge="Iniciar sesión"
       theme="login"
     >
       <form className="space-y-5" onSubmit={handleSubmit}>
         <div className="mb-2">
-          <h2 className="text-xl font-semibold text-[#1d1d1f]">Sign in to your account</h2>
-          <p className="mt-1 text-sm text-[#6e6e73]">Enter your credentials below to continue.</p>
+          <h2 className="text-xl font-semibold text-[#1d1d1f]">Inicia sesión en tu cuenta</h2>
+          <p className="mt-1 text-sm text-[#6e6e73]">Ingresa tus credenciales para continuar.</p>
         </div>
 
         <div className="space-y-1.5">
-          <label className={labelCls}>Email</label>
+          <label className={labelCls}>Correo electrónico</label>
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -104,18 +104,18 @@ export const LoginClassicPage: React.FC = () => {
 
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <label className={labelCls}>Password</label>
+            <label className={labelCls}>Contraseña</label>
             <Link
               to="/forgot-password"
               className="text-[11px] text-[#6e6e73] underline-offset-2 hover:underline hover:text-[#1d1d1f]"
             >
-              Forgot password?
+              ¿Olvidaste tu contraseña?
             </Link>
           </div>
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Your password"
+            placeholder="Tu contraseña"
             className={inputCls}
             type="password"
             autoComplete="current-password"
@@ -134,10 +134,10 @@ export const LoginClassicPage: React.FC = () => {
           disabled={isDisabled}
           className="h-12 w-full rounded-full bg-[#1d1d1f] text-base font-medium text-white shadow-sm hover:bg-black/80"
         >
-          {isSubmitting ? "Signing in..." : <>Continue <ArrowRight className="ml-2 h-4 w-4" /></>}
+          {isSubmitting ? "Iniciando sesión..." : <>Continuar <ArrowRight className="ml-2 h-4 w-4" /></>}
         </Button>
         {loading && !busy && (
-          <p className="text-center text-xs text-[#6e6e73]">Checking existing session...</p>
+          <p className="text-center text-xs text-[#6e6e73]">Verificando sesión existente...</p>
         )}
 
         {showDemoWorkspace && (
@@ -156,15 +156,15 @@ export const LoginClassicPage: React.FC = () => {
               className="h-12 w-full rounded-full border-black/[0.1] bg-white text-base font-medium text-[#1d1d1f] hover:bg-[#f5f5f7]"
               onClick={handleDemo}
             >
-              Try Demo Workspace
+              Probar espacio de demo
             </Button>
           </>
         )}
 
         <p className="text-center text-sm text-[#6e6e73]">
-          New here?{" "}
+          ¿Eres nuevo?{" "}
           <Link to="/signup" className="font-semibold text-[#1d1d1f] underline-offset-2 hover:underline">
-            Create your workspace
+            Crea tu espacio de trabajo
           </Link>
         </p>
       </form>

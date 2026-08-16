@@ -103,11 +103,11 @@ const ResponsiveCardItem: React.FC<ResponsiveCardItemProps> = ({
                         {card.name}
                       </h3>
                       <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${card.isEnabled === false ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'}`}>
-                        {card.isEnabled === false ? 'Disabled' : 'Enabled'}
+                        {card.isEnabled === false ? 'Deshabilitada' : 'Habilitada'}
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground truncate" title={card.rewardName}>
-                       Reward: {card.rewardName}
+                       Premio: {card.rewardName}
                     </p>
                 </div>
                 
@@ -117,7 +117,7 @@ const ResponsiveCardItem: React.FC<ResponsiveCardItemProps> = ({
                         className="rounded-full px-6 gap-2 shadow-sm font-semibold" 
                         onClick={openActiveView}
                     >
-                        <Play size={16} fill="currentColor" /> Open
+                        <Play size={16} fill="currentColor" /> Abrir
                     </Button>
                     <div className="flex items-center gap-1.5">
                         <Button
@@ -125,7 +125,7 @@ const ResponsiveCardItem: React.FC<ResponsiveCardItemProps> = ({
                             size="sm"
                             className="rounded-full gap-1.5"
                             onClick={() => onShowSignupQr(card)}
-                            title="Show signup QR"
+                            title="Mostrar QR de registro"
                         >
                             <QrCode size={14} /> QR
                         </Button>
@@ -135,17 +135,17 @@ const ResponsiveCardItem: React.FC<ResponsiveCardItemProps> = ({
                             className="rounded-full gap-1.5"
                             onClick={() => onToggleEnabled(card.id, card.isEnabled === false)}
                             disabled={toggleBusy}
-                            title={card.isEnabled === false ? 'Enable campaign' : 'Disable campaign'}
+                            title={card.isEnabled === false ? 'Habilitar campaña' : 'Deshabilitar campaña'}
                         >
                             <Power size={14} />
-                            {card.isEnabled === false ? 'Enable' : 'Disable'}
+                            {card.isEnabled === false ? 'Habilitar' : 'Deshabilitar'}
                         </Button>
                         <Button 
                             variant="ghost" 
                             size="icon" 
                             className="h-9 w-9 rounded-full hover:bg-gray-100" 
                             onClick={() => onEdit(card.id)}
-                            title="Edit Campaign"
+                            title="Editar campaña"
                         >
                             <Edit2 size={18} className="text-muted-foreground" />
                         </Button>
@@ -154,7 +154,7 @@ const ResponsiveCardItem: React.FC<ResponsiveCardItemProps> = ({
                             size="icon" 
                             className="h-9 w-9 rounded-full hover:bg-red-50 hover:text-destructive" 
                             onClick={() => onDelete(card.id)}
-                            title="Delete Campaign"
+                            title="Eliminar campaña"
                         >
                             <Trash2 size={18} />
                         </Button>
@@ -189,7 +189,7 @@ export const MyCards: React.FC<MyCardsProps> = ({
         await onDeleteCard(deleteId);
         setDeleteId(null);
       } catch {
-        setDeleteError("Unable to delete this campaign right now. Please try again.");
+        setDeleteError("No se puede eliminar esta campaña ahora. Inténtalo de nuevo.");
       } finally {
         setDeleteBusy(false);
       }
@@ -207,7 +207,7 @@ export const MyCards: React.FC<MyCardsProps> = ({
     try {
       await onToggleCampaignEnabled(id, isEnabled);
     } catch {
-      setDeleteError("Unable to update this campaign status right now. Please try again.");
+      setDeleteError("No se puede actualizar el estado de esta campaña ahora. Inténtalo de nuevo.");
     } finally {
       setToggleBusyId(null);
     }
@@ -231,13 +231,13 @@ export const MyCards: React.FC<MyCardsProps> = ({
                 <CreditCard size={24} />
             </div>
             <div>
-                <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Campaigns</h1>
-                <p className="text-muted-foreground">Manage your active loyalty campaigns.</p>
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Campañas</h1>
+                <p className="text-muted-foreground">Gestiona tus campañas de fidelidad activas.</p>
             </div>
         </div>
         <div className="flex items-center gap-3">
             <Button onClick={handleCreateNew} className="gap-2 rounded-full shadow-sm w-full md:w-auto h-11 text-base">
-                <PlusCircle size={20} /> Create New
+                <PlusCircle size={20} /> Crear nueva
             </Button>
         </div>
       </header>
@@ -247,11 +247,11 @@ export const MyCards: React.FC<MyCardsProps> = ({
           <div className="bg-white p-6 rounded-full shadow-sm mb-6">
              <PlusCircle size={40} className="text-muted-foreground" />
           </div>
-          <h3 className="text-2xl font-bold text-foreground">No campaigns created yet</h3>
+          <h3 className="text-2xl font-bold text-foreground">Aún no hay campañas creadas</h3>
           <p className="text-muted-foreground max-w-sm text-center mt-2 mb-8 text-lg">
-            Get started by creating your first digital loyalty campaign from our templates.
+            Comienza creando tu primera campaña de fidelidad digital desde nuestras plantillas.
           </p>
-          <Button onClick={handleCreateNew} size="lg" className="rounded-full text-lg px-8 h-14">Create your first campaign</Button>
+          <Button onClick={handleCreateNew} size="lg" className="rounded-full text-lg px-8 h-14">Crear tu primera campaña</Button>
         </div>
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-10 pb-12 px-2 md:px-4">
@@ -272,9 +272,9 @@ export const MyCards: React.FC<MyCardsProps> = ({
       <Dialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete Campaign?</DialogTitle>
+            <DialogTitle>¿Eliminar campaña?</DialogTitle>
             <DialogDescription>
-              This action cannot be undone. This will permanently delete <strong>{cards.find(c => c.id === deleteId)?.name}</strong> from your campaigns, but any issued cards will stay active and keep using their saved card snapshot.
+              Esta acción no puede deshacerse. Se eliminará permanentemente <strong>{cards.find(c => c.id === deleteId)?.name}</strong> de tus campañas, pero las tarjetas emitidas seguirán activas y usarán su instantánea guardada.
             </DialogDescription>
           </DialogHeader>
           {deleteError && (
@@ -283,9 +283,9 @@ export const MyCards: React.FC<MyCardsProps> = ({
             </div>
           )}
           <DialogFooter>
-            <Button variant="outline" onClick={() => setDeleteId(null)} disabled={deleteBusy}>Cancel</Button>
+            <Button variant="outline" onClick={() => setDeleteId(null)} disabled={deleteBusy}>Cancelar</Button>
             <Button variant="destructive" onClick={confirmDelete} disabled={deleteBusy}>
-              {deleteBusy ? "Deleting..." : "Delete"}
+              {deleteBusy ? "Eliminando..." : "Eliminar"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -294,9 +294,9 @@ export const MyCards: React.FC<MyCardsProps> = ({
       <Dialog open={!!qrCard} onOpenChange={(open) => !open && setQrCard(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Campaign Signup QR</DialogTitle>
+            <DialogTitle>QR de registro de campaña</DialogTitle>
             <DialogDescription>
-              Customers can scan this QR code at reception to join <strong>{qrCard?.name}</strong>.
+              Los clientes pueden escanear este QR en recepción para unirse a <strong>{qrCard?.name}</strong>.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col items-center gap-4 py-2">
@@ -306,13 +306,13 @@ export const MyCards: React.FC<MyCardsProps> = ({
               </div>
             )}
             <div className="w-full space-y-2">
-              <Label className="text-xs text-muted-foreground">Signup link</Label>
+              <Label className="text-xs text-muted-foreground">Enlace de registro</Label>
               <div className="flex items-center gap-2">
                 <Input readOnly value={qrDisplayUrl || qrUrl} className="text-xs font-mono bg-muted/40" />
-                <Button type="button" variant="outline" size="icon" onClick={handleCopyQrUrl} title="Copy link">
+                <Button type="button" variant="outline" size="icon" onClick={handleCopyQrUrl} title="Copiar enlace">
                   <Copy size={14} />
                 </Button>
-                <Button type="button" variant="outline" size="icon" onClick={handleOpenQrUrl} title="Open link">
+                <Button type="button" variant="outline" size="icon" onClick={handleOpenQrUrl} title="Abrir enlace">
                   <ExternalLink size={14} />
                 </Button>
               </div>
