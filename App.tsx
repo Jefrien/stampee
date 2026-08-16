@@ -15,6 +15,7 @@ import { fetchCampaigns, upsertCampaign, deleteCampaign as dbDeleteCampaign, set
 import { fetchCustomersWithCards } from './lib/db/customers';
 import { fetchPublicScanEntryContext } from './lib/db/issuedCards';
 import { buildIssuedCardsKioskUrl, buildStaffPortalUrl, buildStaffScanEntryUrl } from './lib/links';
+import { getWalletPassUrl } from './lib/walletPass';
 import { isSupabaseConfigured, supabase } from './lib/supabase';
 import { useSubscription } from './lib/useSubscription';
 import { SubscriptionProvider } from './components/SubscriptionContext';
@@ -23,7 +24,7 @@ import { APP_ORIGIN } from './lib/siteConfig';
 const SITE_ORIGIN = APP_ORIGIN;
 const DEFAULT_SOCIAL_DESCRIPTION = 'Stampee is a digital loyalty card platform for small businesses, including loyalty program for cafes, loyalty program for spa, loyalty program for laundry, loyalty program for carwash, and loyalty program for salons.';
 const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/social-preview-v2.jpg`;
-const SERVICE_UNAVAILABLE_MESSAGE = 'Service is temporarily unavailable. Please try again later.';
+const SERVICE_UNAVAILABLE_MESSAGE = 'El servicio no está disponible temporalmente. Inténtalo de nuevo más tarde.';
 
 type SeoConfig = {
   title: string;
@@ -175,6 +176,15 @@ const PublicCardWrapper: React.FC = () => {
     customer: Customer;
     template: Template;
   } | null>(null);
+  const [walletBusy, setWalletBusy] = useState(false);
+
+  const handleAddToWallet = async () => {
+    if (!slug || !uniqueId) return;
+    setWalletBusy(true);
+    const url = await getWalletPassUrl(slug, uniqueId);
+    setWalletBusy(false);
+    if (url) window.location.href = url;
+  };
 
   useEffect(() => {
     if (!isSupabaseConfigured || !slug || !uniqueId) { setLoading(false); return; }
@@ -245,7 +255,7 @@ const PublicCardWrapper: React.FC = () => {
   if (!cardData) {
     return (
       <div className="h-screen flex items-center justify-center px-6 text-center text-muted-foreground">
-        {isSupabaseConfigured ? 'Card not found.' : SERVICE_UNAVAILABLE_MESSAGE}
+        {isSupabaseConfigured ? 'Tarjeta no encontrada.' : SERVICE_UNAVAILABLE_MESSAGE}
       </div>
     );
   }
@@ -297,12 +307,32 @@ const PublicCardWrapper: React.FC = () => {
               <div className="mx-auto mb-3 h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center">
                 <Lock size={22} className="text-gray-600" />
               </div>
-              <h2 className="text-xl font-bold text-gray-900">Redeemed</h2>
-              <p className="mt-1 text-sm text-gray-600">This card is closed.</p>
+              <h2 className="text-xl font-bold text-gray-900">Canjeada</h2>
+              <p className="mt-1 text-sm text-gray-600">Esta tarjeta está cerrada.</p>
               <div className="mt-3 text-xs text-gray-500 font-mono">
-                Card ID: {card.uniqueId}
+                ID: {card.uniqueId}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Google Wallet button — fixed at bottom on mobile, inline on desktop */}
+        {!isRedeemed && (
+          <div className="pointer-events-none fixed bottom-0 left-0 right-0 z-40 flex justify-center pb-5 md:absolute md:bottom-auto md:top-4 md:right-4 md:left-auto md:pb-0">
+            <button
+              onClick={handleAddToWallet}
+              disabled={walletBusy}
+              className="pointer-events-auto flex items-center gap-2 rounded-full bg-[#1a1a1a] px-5 py-3 text-sm font-semibold text-white shadow-lg transition-opacity hover:opacity-90 disabled:opacity-60"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 10H22" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                <circle cx="7" cy="15" r="1.5" fill="#4285F4"/>
+                <circle cx="12" cy="15" r="1.5" fill="#34A853"/>
+                <circle cx="17" cy="15" r="1.5" fill="#FBBC05"/>
+              </svg>
+              {walletBusy ? 'Generando...' : 'Agregar a Google Wallet'}
+            </button>
           </div>
         )}
       </div>
