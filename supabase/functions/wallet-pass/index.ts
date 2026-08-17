@@ -104,7 +104,15 @@ interface CampaignInfo {
   rewardName: string
   logoImage?: string
   totalStamps: number
-  colors: { background?: string; text?: string }
+  colors: { background?: string; text?: string; stampActive?: string; iconActive?: string; stampInactive?: string; iconInactive?: string }
+}
+
+/** URL of the dynamic stamp image served by the wallet-stamp-image function */
+function stampImageUrl(stamps: number, total: number, colors: CampaignInfo['colors']): string {
+  const bg = (colors.background ?? '#1a1a2e').replace('#', '')
+  const ac = (colors.stampActive ?? colors.iconActive ?? '#d4bf9a').replace('#', '')
+  const ic = (colors.stampInactive ?? colors.iconInactive ?? '#888888').replace('#', '')
+  return `${SUPABASE_URL}/functions/v1/wallet-stamp-image?s=${stamps}&t=${total}&bg=${bg}&ac=${ac}&ic=${ic}`
 }
 
 function buildClass(campaignId: string, c: CampaignInfo) {
@@ -115,8 +123,11 @@ function buildClass(campaignId: string, c: CampaignInfo) {
     issuerName: c.name,
     programName: c.name,
 
-    // Labels for predefined loyalty fields
+    // Predefined loyalty fields
     loyaltyPointsLabel: 'Sellos',
+    // We expose the reward via textModulesData (class-level) so we can control
+    // how the header/body appear: "Pastelito 3 leches" over "10 sellos para ganar".
+    // The built-in rewardsTier field is kept for compatibility but hidden from layout.
     rewardsTierLabel: 'Premio',
     rewardsTier: c.rewardName,
 
@@ -136,22 +147,26 @@ function buildClass(campaignId: string, c: CampaignInfo) {
               },
             },
           },
-          // Row 2: Sellos | Premio | Meta  (3 columns)
+          // Row 2: Sellos acumulados | Premio (reward name / total stamps) | Estado
           {
             threeItems: {
+              // Left: current stamp count
               startItem: {
                 firstValue: {
                   fields: [{ fieldPath: 'object.loyaltyPoints.balance' }],
                 },
               },
+              // Middle: reward name as header, "X sellos" as body
+              //   => shows "Pastelito 3 leches" big with "10 sellos para ganar" below
               middleItem: {
                 firstValue: {
-                  fields: [{ fieldPath: 'class.rewardsTier' }],
+                  fields: [{ fieldPath: "class.textModulesData['reward_card']" }],
                 },
               },
+              // Right: remaining stamps or completion status
               endItem: {
                 firstValue: {
-                  fields: [{ fieldPath: 'object.secondaryLoyaltyPoints.balance' }],
+                  fields: [{ fieldPath: "object.textModulesData['status']" }],
                 },
               },
             },
@@ -191,8 +206,18 @@ function buildClass(campaignId: string, c: CampaignInfo) {
     },
 
     // ── BACK OF PASS (details view) ──────────────────────────────
+    // ── TEXT MODULES — class-level (same for all holders of this campaign) ────
     textModulesData: [
       {
+        // Referenced in Row 2 middle — shows on the FRONT
+        // Google Wallet shows: header (small, top) then body (large, below)
+        // So header = reward name, body = "X sellos para ganar"
+        id: 'reward_card',
+        header: c.rewardName,
+        body: `${c.totalStamps} sellos`,
+      },
+      {
+        // Back of pass only
         id: 'how_it_works',
         header: 'Cómo funciona',
         body: `Acumula ${c.totalStamps} sellos y canjea tu premio: ${c.rewardName}.`,
@@ -232,6 +257,7 @@ function buildObject(
   rewardName: string,
   slug: string,
   status: string,
+  colors: CampaignInfo['colors'],
 ) {
   const isCompleted = status === 'Redeemed' || stamps >= totalStamps
   const remaining   = Math.max(totalStamps - stamps, 0)
@@ -280,6 +306,16 @@ function buildObject(
         body: rewardName,
       },
     ],
+
+    // Dynamic stamp image — shows filled/empty circles matching current stamps.
+    // heroImage on the Object overrides the one on the Class.
+    // The URL includes stamp count so Google re-fetches when it changes.
+    heroImage: {
+      sourceUri: { uri: stampImageUrl(stamps, totalStamps, colors) },
+      contentDescription: {
+        defaultValue: { language: 'es', value: `${stamps} de ${totalStamps} sellos` },
+      },
+    },
 
     // QR code — opens the web card for scanning
     barcode: {
@@ -364,12 +400,20 @@ Deno.serve(async (req) => {
     const snap     = card.templateSnapshot ?? data.campaign ?? {}
     const campaignId = card.campaignId ?? snap.id ?? 'unknown'
 
+    const snapColors = snap.colors ?? {}
     const campaign: CampaignInfo = {
       name: snap.name ?? card.campaignName ?? 'Programa de fidelidad',
       rewardName: snap.rewardName ?? snap.reward_name ?? 'Premio',
       logoImage: snap.logoImage ?? snap.logo_image,
       totalStamps: snap.totalStamps ?? snap.total_stamps ?? 10,
-      colors: snap.colors ?? {},
+      colors: {
+        background:     snapColors.background,
+        text:           snapColors.text,
+        stampActive:    snapColors.stampActive,
+        iconActive:     snapColors.iconActive,
+        stampInactive:  snapColors.stampInactive,
+        iconInactive:   snapColors.iconInactive,
+      },
     }
 
     // 2. Import service account key & get access token
@@ -392,6 +436,7 @@ Deno.serve(async (req) => {
       campaign.rewardName,
       slug,
       card.status,
+      campaign.colors,
     )
     await upsertObject(accessToken, objectId, objectBody)
 

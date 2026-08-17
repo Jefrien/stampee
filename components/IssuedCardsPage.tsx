@@ -23,6 +23,7 @@ import { ScanDetectionResult, ScanQrDialog } from './ScanQrDialog';
 import { insertIssuedCard, updateIssuedCard, deleteIssuedCard, insertTransaction, inspectScannedCard } from '../lib/db/issuedCards';
 import { upsertCustomer } from '../lib/db/customers';
 import { useSubscriptionContext } from './SubscriptionContext';
+import { syncWalletPass } from '../lib/walletPass';
 
 interface IssuedCardsPageProps {
   customers: Customer[];
@@ -74,6 +75,12 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
     if (updates.completedDate !== undefined) dbUpdates.completedDate = updates.completedDate;
     if (updates.lastVisit !== undefined) dbUpdates.lastVisit = updates.lastVisit;
 
+    // Grab uniqueId now (before state updates) for wallet sync
+    const targetCard = customers
+      .find(c => c.id === customerId)?.cards
+      .find(c => c.id === cardId);
+    const cardUniqueId = targetCard?.uniqueId;
+
     let wroteData = false;
     try {
       if (Object.keys(dbUpdates).length > 0) {
@@ -114,6 +121,14 @@ export const IssuedCardsPage: React.FC<IssuedCardsPageProps> = ({ customers, cam
           if (!prev) return null;
           return { ...prev, card: { ...prev.card, ...updates } };
         });
+      }
+
+      // Sync Google Wallet pass in background whenever stamps or status change.
+      // Fire-and-forget: errors are silently ignored so they never block the UI.
+      const stampsChanged = updates.stamps !== undefined;
+      const statusChanged = updates.status !== undefined;
+      if (cardUniqueId && currentOwner?.slug && (stampsChanged || statusChanged)) {
+        void syncWalletPass(currentOwner.slug, cardUniqueId);
       }
     } catch (error) {
       if (wroteData) {
